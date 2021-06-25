@@ -12,7 +12,7 @@ import cm.uds.fuchsia.gag.model.configuration.Configuration;
 import cm.uds.fuchsia.gag.model.specification.FunctionExpression;
 import cm.uds.fuchsia.gag.model.specification.GAG;
 import cm.uds.fuchsia.gag.model.specification.IdExpression;
-import cm.uds.fuchsia.gag.network.NetworkInformation;
+import cm.uds.fuchsia.gag.network.Component;
 import cm.uds.fuchsia.gag.network.Subscription;
 import cm.uds.fuchsia.gag.specification.aspect.GAGAspect;
 import cm.uds.fuchsia.gag.ui.component.ComponentIHM;
@@ -21,8 +21,8 @@ public class Launcher {
 
 static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\GagApp\\bin";
 	
-	public static void launchComponent(String componentName, String gagSpecificationPath) {
-
+	public static Component launchComponent(String componentName, String gagSpecificationPath) {
+        Component net=null;
 		JAXBContext ctx;
 		try { 
 			ctx= JAXBContext.newInstance(GAG.class,Configuration.class,IdExpression.class, FunctionExpression.class);
@@ -40,15 +40,19 @@ static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\Gag
 			window.setVisible(true);
 			window.disposeTheGraph(mygag);
 			window.setTitle(componentName);
-			NetworkInformation.setIHM(window);
-			NetworkInformation.setSUBSCRIPTION_LIST(new ArrayList<Subscription>());
-			NetworkInformation.setCOMPONENT_NAME(componentName);
-			NetworkInformation.setASSOCIATE_GAG(mygag);
+			net = new Component();
+			net.setIHM(window);
+			net.setSUBSCRIPTION_LIST(new ArrayList<Subscription>());
+			net.setCOMPONENT_NAME(componentName);
+			net.setASSOCIATE_GAG(mygag);
 			//gasp.runWithExternalOuputInterface(window.getGraphLayout());
 		} catch (JAXBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
+		return net;
 		
 	}
 }

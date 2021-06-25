@@ -17,8 +17,6 @@
  * null
  * 
  * 
- * null
- * null
  * 
  **/
 package soaApp;

@@ -23,40 +23,20 @@ import inria.smarttools.core.util.*;
  **/
 public class ReturnToEvent extends StEventImpl {
    //
-   // Fields 
-   //
-
-   /**
-    **/
-   protected gag.Term term;
-
-   /**
-    **/
-   public void setTerm(gag.Term v){
-      this.term = v;
-   }
-
-   public gag.Term getTerm(){
-      return term;
-   }
-
-   //
    // Constructors 
    //
 
    /**
     * Constructor
     **/
-   public   ReturnToEvent(gag.Term term){
-      setTerm(term);
+   public   ReturnToEvent(){
    }
 
    /**
     * Constructor
     **/
-   public   ReturnToEvent(String adressee, gag.Term term){
+   public   ReturnToEvent(String adressee){
       super(adressee);
-      setTerm(term);
    }
 
 

@@ -58,11 +58,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     **/
    protected Vector<ConnectToListener> connectToListeners = new Vector<ConnectToListener>();
    /**
-    * banane
-    * null
-    **/
-   protected Vector<BananeListener> bananeListeners = new Vector<BananeListener>();
-   /**
     * send
     * 
     **/
@@ -115,8 +110,8 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * null
     * @param expeditor is the component name who sent this message
     **/
-   public  void inInvokeTo(String expeditor, gag.ServiceNode service, gag.behaviour.SubscriptionTable subscriptions){
-      super.inInvokeTo(expeditor, service, subscriptions);
+   public  void inInvokeTo(String expeditor){
+      super.inInvokeTo(expeditor);
    }
 
    /**
@@ -124,8 +119,8 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * null
     * @param expeditor is the component name who sent this message
     **/
-   public  void inReturnTo(String expeditor, gag.Term term){
-      super.inReturnTo(expeditor, term);
+   public  void inReturnTo(String expeditor){
+      super.inReturnTo(expeditor);
    }
 
    /**
@@ -169,8 +164,8 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * null
     * @param ev a <code>Object</code> value : data
     **/
-   public  void outInvokeTo(gag.ServiceNode service, gag.behaviour.SubscriptionTable subscriptions){
-      outInvokeTo(null, service, subscriptions);
+   public  void outInvokeTo(){
+      outInvokeTo(null);
    }
 
    /**
@@ -179,11 +174,9 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * @param adressee component name, which will receive this message
     * @param ev a <code>Object</code> value : data
     **/
-   public  void outInvokeTo(String adressee, gag.ServiceNode service, gag.behaviour.SubscriptionTable subscriptions){
+   public  void outInvokeTo(String adressee){
       PropertyMap args = new PropertyMap();
-      args.put("service",service);
-      args.put("subscriptions",subscriptions);
-      InvokeToEvent ev =  new InvokeToEvent(adressee, service, subscriptions);
+      InvokeToEvent ev =  new InvokeToEvent(adressee);
       ev.setAttributes(args);
       for(int i = 0 ; i < invokeToListeners.size() ; i++)
       (( InvokeToListener ) invokeToListeners.elementAt(i)).outInvokeTo(ev);
@@ -338,8 +331,8 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * null
     * @param ev a <code>Object</code> value : data
     **/
-   public  void outReturnTo(gag.Term term){
-      outReturnTo(null, term);
+   public  void outReturnTo(){
+      outReturnTo(null);
    }
 
    /**
@@ -348,10 +341,9 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * @param adressee component name, which will receive this message
     * @param ev a <code>Object</code> value : data
     **/
-   public  void outReturnTo(String adressee, gag.Term term){
+   public  void outReturnTo(String adressee){
       PropertyMap args = new PropertyMap();
-      args.put("term",term);
-      ReturnToEvent ev =  new ReturnToEvent(adressee, term);
+      ReturnToEvent ev =  new ReturnToEvent(adressee);
       ev.setAttributes(args);
       for(int i = 0 ; i < returnToListeners.size() ; i++)
       (( ReturnToListener ) returnToListeners.elementAt(i)).outReturnTo(ev);
@@ -385,30 +377,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
       ev.setAttributes(args);
       for(int i = 0 ; i < connectToListeners.size() ; i++)
       (( ConnectToListener ) connectToListeners.elementAt(i)).connectTo(ev);
-   }
-
-   /**
-    * banane
-    * null
-    * @param ev a <code>Object</code> value : data
-    **/
-   public  void outBanane(java.lang.String repliquePartielle){
-      outBanane(null, repliquePartielle);
-   }
-
-   /**
-    * banane
-    * null
-    * @param adressee component name, which will receive this message
-    * @param ev a <code>Object</code> value : data
-    **/
-   public  void outBanane(String adressee, java.lang.String repliquePartielle){
-      PropertyMap args = new PropertyMap();
-      args.put("repliquePartielle",repliquePartielle);
-      BananeEvent ev =  new BananeEvent(adressee, repliquePartielle);
-      ev.setAttributes(args);
-      for(int i = 0 ; i < bananeListeners.size() ; i++)
-      (( BananeListener ) bananeListeners.elementAt(i)).outBanane(ev);
    }
 
    /**
@@ -578,22 +546,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     **/
    public  void removeConnectToListener(ConnectToListener data){
       connectToListeners.remove(data);
-   }
-
-   /**
-    * banane
-    * null
-    **/
-   public  void addBananeListener(BananeListener data){
-      bananeListeners.add(data);
-   }
-
-   /**
-    * banane
-    * null
-    **/
-   public  void removeBananeListener(BananeListener data){
-      bananeListeners.remove(data);
    }
 
    /**

@@ -6,15 +6,12 @@ import inria.communicationprotocol.CommunicationProtocolContainer;
 import java.util.List;
 import java.util.ArrayList;
 import inria.smarttools.core.component.*;
-import gag.ServiceNode;
-import gag.behaviour.SubscriptionTable;
 import inria.smarttools.core.component.PropertyMap;
 import java.lang.String;
-import gag.Term;
 
 /**
  **/
-public class SoaAppContainer extends CommunicationProtocolContainer implements inria.smarttools.core.component.Container, soaApp.InvokeToListener, soaApp.ExitListener, soaApp.DisconnectListener, soaApp.InitDataListener, soaApp.UndoListener, soaApp.LogListener, soaApp.LogUndoListener, soaApp.ReturnToListener, soaApp.ConnectToListener, soaApp.BananeListener, soaApp.SendListener {
+public class SoaAppContainer extends CommunicationProtocolContainer implements inria.smarttools.core.component.Container, soaApp.InvokeToListener, soaApp.ExitListener, soaApp.DisconnectListener, soaApp.InitDataListener, soaApp.UndoListener, soaApp.LogListener, soaApp.LogUndoListener, soaApp.ReturnToListener, soaApp.ConnectToListener, soaApp.SendListener {
    {
       List<MethodCall> methodCalls;
       methodCalls = calls.get("invokeTo");
@@ -24,7 +21,7 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
       }
       methodCalls.add(new MethodCall() {
          public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
-            ((SoaAppFacade) facade).inInvokeTo(expeditorId, (gag.ServiceNode) parameters.get("service"), (gag.behaviour.SubscriptionTable) parameters.get("subscriptions"));
+            ((SoaAppFacade) facade).inInvokeTo(expeditorId);
             return null;
          	}});
       methodCalls = calls.get("returnTo");
@@ -34,7 +31,7 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
       }
       methodCalls.add(new MethodCall() {
          public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
-            ((SoaAppFacade) facade).inReturnTo(expeditorId, (gag.Term) parameters.get("term"));
+            ((SoaAppFacade) facade).inReturnTo(expeditorId);
             return null;
          	}});
       methodCalls = calls.get("disconnect");
@@ -130,7 +127,6 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
       ((SoaAppFacadeInterface) facade).addLogUndoListener(this);
       ((SoaAppFacadeInterface) facade).addReturnToListener(this);
       ((SoaAppFacadeInterface) facade).addConnectToListener(this);
-      ((SoaAppFacadeInterface) facade).addBananeListener(this);
       ((SoaAppFacadeInterface) facade).addSendListener(this);
    }
 
@@ -204,14 +200,6 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
     **/
    public  void connectTo(ConnectToEvent e){
       send(new MessageImpl("connectTo", e.getAttributes() , null, e.getAdressee()));
-   }
-
-   /**
-    * BananeListener
-    * @throws IllegalStateException to absolutely care in business methods
-    **/
-   public  void outBanane(BananeEvent e){
-      send(new MessageImpl("banane", e.getAttributes() , null, e.getAdressee()));
    }
 
    /**

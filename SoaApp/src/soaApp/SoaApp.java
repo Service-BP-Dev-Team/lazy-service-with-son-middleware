@@ -1,10 +1,10 @@
 package soaApp;
 
-import cm.uds.fuchsia.gag.network.NetworkInformation;
+import cm.uds.fuchsia.gag.network.Component;
 
 
 public abstract class SoaApp extends inria.communicationprotocol.CommunicationProtocolFacade {
-	protected NetworkInformation network = null;
+	protected Component network = null;
 	public SoaApp () {
 		//view = getView ();
 		//SwingUtilities.invokeLater(new Runnable() {
@@ -12,21 +12,21 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
        //         view = getView ();
         //    }
         //});
-		network= new NetworkInformation();
+		network= new Component();
 	}
 
-	public void inInvokeTo() {
+	public void inInvokeTo(String expeditor) {
 	}
 	
-	public void inReturnTo() {
+	public void inReturnTo(String expeditor) {
 		
 	}
 
-	public abstract void outInvokeTo();
-	public abstract void outReturnTo();
-public NetworkInformation getNetwork() {
+	public abstract void outInvokeTo(String expeditor);
+	public abstract void outReturnTo(String expeditor);
+public Component getNetwork() {
 	if (network == null) {
-		network = new NetworkInformation();
+		network = new Component();
 	}
 	return network;
 }

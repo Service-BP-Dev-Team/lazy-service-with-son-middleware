@@ -9,54 +9,20 @@ import inria.smarttools.core.util.*;
  **/
 public class InvokeToEvent extends StEventImpl {
    //
-   // Fields 
-   //
-
-   /**
-    **/
-   protected gag.ServiceNode service;
-   /**
-    **/
-   protected gag.behaviour.SubscriptionTable subscriptions;
-
-   /**
-    **/
-   public void setService(gag.ServiceNode v){
-      this.service = v;
-   }
-
-   public gag.ServiceNode getService(){
-      return service;
-   }
-   /**
-    **/
-   public void setSubscriptions(gag.behaviour.SubscriptionTable v){
-      this.subscriptions = v;
-   }
-
-   public gag.behaviour.SubscriptionTable getSubscriptions(){
-      return subscriptions;
-   }
-
-   //
    // Constructors 
    //
 
    /**
     * Constructor
     **/
-   public   InvokeToEvent(gag.ServiceNode service, gag.behaviour.SubscriptionTable subscriptions){
-      setService(service);
-      setSubscriptions(subscriptions);
+   public   InvokeToEvent(){
    }
 
    /**
     * Constructor
     **/
-   public   InvokeToEvent(String adressee, gag.ServiceNode service, gag.behaviour.SubscriptionTable subscriptions){
+   public   InvokeToEvent(String adressee){
       super(adressee);
-      setService(service);
-      setSubscriptions(subscriptions);
    }
 
 

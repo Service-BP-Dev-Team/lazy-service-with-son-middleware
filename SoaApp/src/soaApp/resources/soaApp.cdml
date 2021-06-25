@@ -4,7 +4,7 @@
 	<containerclass name="SoaAppContainer"/>
 	<facadeclass name="SoaAppFacade" userclassname="SoaApp"/>
 
-<input name="invokeTo" method="inInvokeTo">
+	<input name="invokeTo" method="inInvokeTo">
 	</input>
 	
 	<input name="returnTo" method="inReturnTo">

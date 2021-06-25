@@ -15,14 +15,14 @@ public interface SoaAppFacadeInterface {
     * null
     * @param expeditor is the component name who sent this message
     **/
-   public  void inInvokeTo(String expeditor, gag.ServiceNode service, gag.behaviour.SubscriptionTable subscriptions);
+   public  void inInvokeTo(String expeditor);
 
    /**
     * returnTo
     * null
     * @param expeditor is the component name who sent this message
     **/
-   public  void inReturnTo(String expeditor, gag.Term term);
+   public  void inReturnTo(String expeditor);
 
    /**
     * disconnect
@@ -159,18 +159,6 @@ public interface SoaAppFacadeInterface {
     * 
     **/
    public  void removeConnectToListener(ConnectToListener data);
-
-   /**
-    * banane
-    * null
-    **/
-   public  void addBananeListener(BananeListener data);
-
-   /**
-    * banane
-    * null
-    **/
-   public  void removeBananeListener(BananeListener data);
 
    /**
     * send
