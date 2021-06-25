@@ -13,4 +13,4 @@ Import-Package: org.osgi.framework,
 Require-Bundle: inria.smarttools.lib,
  inria.smarttools.core,
  inria.communicationprotocol;bundle-version="0.3.0",
- pluginLibrary;bundle-version="1.0.0"
+ GagApp;bundle-version="1.0.0"
