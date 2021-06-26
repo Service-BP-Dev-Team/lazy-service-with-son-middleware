@@ -27,7 +27,7 @@
    </vm>
 
    <plugins>
-      <plugin id="GagApp"/>
+      <plugin id="GagAppPlugin"/>
       <plugin id="components-graph" version="1.0.0"/>
       <plugin id="componentsManager" version="1.6.3"/>
       <plugin id="inria.communicationprotocol"/>
@@ -43,7 +43,6 @@
       <plugin id="inria.smarttools.lib"/>
       <plugin id="openchord" version="1.0.1"/>
       <plugin id="org.eclipse.osgi"/>
-      <plugin id="pluginLibrary"/>
       <plugin id="soaApp"/>
       <plugin id="startereditor"/>
    </plugins>

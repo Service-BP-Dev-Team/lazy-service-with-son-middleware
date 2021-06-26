@@ -39,7 +39,8 @@ class PendingLocalFunctionComputationAspect extends PendingLocalFunctionComputat
 
 			val shell = new GroovyShell( /*currentClassLoader,*/ binding)
 			var cl = shell.classLoader
-			cl.addClasspath(classPath);
+			//cl.addClasspath(classPath);
+			cl.addClasspath(this.functionDeclaration.location);
 			var params="("
 			for(i:0 ..<this.actualParameters.size){
 				var d = this.actualParameters.get(i);
@@ -52,7 +53,7 @@ class PendingLocalFunctionComputationAspect extends PendingLocalFunctionComputat
 			}
 			params+=')'
 			// var htmlCleanedDescr = "MyCustomGAGGuard.staticIsRuleActivable()"
-			var stringToExecute = this.functionDeclaration.location+"."+this.functionDeclaration.method+params;
+			var stringToExecute = this.functionDeclaration.method+params;
 			//Console.debug(stringToExecute);
 			res = shell.evaluate(stringToExecute)  // as Map<String, Object>
 //			for (OutputPin port: _self.outputs) {

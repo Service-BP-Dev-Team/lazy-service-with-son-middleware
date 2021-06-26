@@ -55,7 +55,9 @@ public class PendingLocalFunctionComputationAspect extends PendingLocalFunctionC
       InputOutput.<String>println("run code");
       final GroovyShell shell = new GroovyShell(binding);
       GroovyClassLoader cl = shell.getClassLoader();
-      cl.addClasspath(PendingLocalFunctionComputationAspect.classPath);
+      FunctionDeclaration _functionDeclaration = this.getFunctionDeclaration();
+      String _location = _functionDeclaration.getLocation();
+      cl.addClasspath(_location);
       String params = "(";
       ArrayList<Data> _actualParameters = this.getActualParameters();
       int _size = _actualParameters.size();
@@ -78,21 +80,17 @@ public class PendingLocalFunctionComputationAspect extends PendingLocalFunctionC
       }
       String _params = params;
       params = (_params + ")");
-      FunctionDeclaration _functionDeclaration = this.getFunctionDeclaration();
-      String _location = _functionDeclaration.getLocation();
-      String _plus = (_location + ".");
       FunctionDeclaration _functionDeclaration_1 = this.getFunctionDeclaration();
       String _method = _functionDeclaration_1.getMethod();
-      String _plus_1 = (_plus + _method);
-      String stringToExecute = (_plus_1 + params);
+      String stringToExecute = (_method + params);
       Object _evaluate = shell.evaluate(stringToExecute);
       res = _evaluate;
     } catch (final Throwable _t) {
       if (_t instanceof Exception) {
         final Exception cnfe = (Exception)_t;
         String _message = cnfe.getMessage();
-        String _plus_2 = ("Failed to call Groovy script " + _message);
-        InputOutput.<String>println(_plus_2);
+        String _plus = ("Failed to call Groovy script " + _message);
+        InputOutput.<String>println(_plus);
         cnfe.printStackTrace();
       } else {
         throw Exceptions.sneakyThrow(_t);

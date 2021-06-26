@@ -5,15 +5,17 @@
 		<input name="b" />
 		<output name="c" />
 		<production name="R1">
-			<guard location="local.functions.Util" method="guard" />
+			<guard
+				location="E:\PhD Recherche\Implementation\Workspace Eclipse SON\GagAppPlugin\bin"
+				method="local.functions.Util.guard" />
 			<semantic>
 
 				<function-declaration
-					location="local.functions.Util" method="f" name="f" />
+					location="E:\PhD Recherche\Implementation\Workspace Eclipse SON\GagAppPlugin\bin"
+					method="local.functions.Util.f" name="f" />
 				<action>
 					<leftpart service="S1" parameter="c" />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="functionExpression" function="f">
 						<arg service="S1" parameter="a" />
 						<arg service="S1" parameter="b" />
@@ -28,11 +30,11 @@
 		<production name="R1">
 			<semantic>
 				<function-declaration
-					location="local.functions.Util" method="g" name="g" />
+					location="E:\PhD Recherche\Implementation\Workspace Eclipse SON\GagAppPlugin\bin"
+					method="local.functions.Util.g" name="g" />
 				<action>
 					<leftpart service="S2" parameter="b" />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="functionExpression" function="g">
 						<arg service="S2" parameter="a" />
 					</rightpart>
@@ -47,36 +49,31 @@
 		<production name="R1" subServices="S1 S2">
 			<semantic>
 				<action>
-					<leftpart service="S1" parameter="a"  />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xsi:type="idExpression" service="S3" parameter="a"  />
+					<leftpart service="S1" parameter="a" />
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xsi:type="idExpression" service="S3" parameter="a" />
 				</action>
 				<action>
-					<leftpart service="S1" parameter="b"  />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xsi:type="idExpression" service="S2" parameter="b"  />
+					<leftpart service="S1" parameter="b" />
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xsi:type="idExpression" service="S2" parameter="b" />
 				</action>
 				<action>
-					<leftpart service="S2" parameter="a"  />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xsi:type="idExpression" service="S3" parameter="a"  />
+					<leftpart service="S2" parameter="a" />
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xsi:type="idExpression" service="S3" parameter="a" />
 				</action>
 				<action>
-					<leftpart service="S3" parameter="b"  />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xsi:type="idExpression" service="S2" parameter="b"  />
+					<leftpart service="S3" parameter="b" />
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xsi:type="idExpression" service="S2" parameter="b" />
 				</action>
 				<action>
-					<leftpart service="S3" parameter="c"  />
-					<rightpart
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xsi:type="idExpression" service="S1" parameter="c"  />
+					<leftpart service="S3" parameter="c" />
+					<rightpart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xsi:type="idExpression" service="S1" parameter="c" />
 				</action>
-			
+
 			</semantic>
 		</production>
 		<production name="R2"></production>

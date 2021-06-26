@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="lib/jaxb-impl-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/weblaf-demo-1.2.13-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="lib/jgraphx-4.2.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
