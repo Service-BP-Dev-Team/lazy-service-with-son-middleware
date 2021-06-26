@@ -1,5 +1,6 @@
 package soaApp;
 
+import main.Launcher;
 import cm.uds.fuchsia.gag.network.Component;
 
 
@@ -12,7 +13,8 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
        //         view = getView ();
         //    }
         //});
-		network= new Component();
+		String gagSpecificationPath ="E:\\PhD Recherche\\Implementation\\Workspace Eclipse SON\\GagApp\\gag-specification\\gag.xml";
+		network= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
 	}
 
 	public void inInvokeTo(String expeditor) {
@@ -26,7 +28,8 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
 	public abstract void outReturnTo(String expeditor);
 public Component getNetwork() {
 	if (network == null) {
-		network = new Component();
+		String gagSpecificationPath ="E:\\PhD Recherche\\Implementation\\Workspace Eclipse SON\\GagApp\\gag-specification\\gag.xml";
+		network= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
 	}
 	return network;
 }

@@ -159,7 +159,7 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
         final Exception e = (Exception)_t;
         e.printStackTrace();
       } else {
-        throw Exceptions.sneakyThrow(_t);
+         throw Exceptions.sneakyThrow(_t);
       }
     } finally {
       this.layoutForParent.setParentBorder(5);

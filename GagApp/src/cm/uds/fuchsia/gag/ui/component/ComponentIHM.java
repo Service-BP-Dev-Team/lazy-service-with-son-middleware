@@ -85,7 +85,7 @@ public class ComponentIHM {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 703, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		/*
 		try {
 			// UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
 			UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
@@ -95,7 +95,7 @@ public class ComponentIHM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		*/
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 
