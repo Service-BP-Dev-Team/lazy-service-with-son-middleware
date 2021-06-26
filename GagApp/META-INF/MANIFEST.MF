@@ -602,4 +602,3 @@ Export-Package: .,
  res.help.about,
  res.icons,
  xml
-Require-Bundle: pluginLibrary;bundle-version="1.0.0"

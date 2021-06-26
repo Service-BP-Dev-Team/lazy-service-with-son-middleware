@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="lib/xtend/com.google.guava_15.0.0.v201403281430.jar"/>
+	<classpathentry kind="lib" path="lib/xtend/org.eclipse.xtend.lib_2.6.2.v201407030533.jar"/>
+	<classpathentry kind="lib" path="lib/xtend/org.eclipse.xtext.xbase.lib_2.6.2.v201407030533.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/groovy-3.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-core-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-api-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-impl-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/weblaf-demo-1.2.13-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="lib/jgraphx-4.2.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
