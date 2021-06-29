@@ -277,7 +277,7 @@ public class ComponentIHM {
 		int rows = 0;
 		for (int i = 0; i < allTasks.size(); i++) {
 			Task el = allTasks.get(i);
-			if (el.isOpen()) {
+			if (el.isOpen() && !el.getService().isRemote()) {
 				rows++; // a line for the service equation eg. (x)=s(y)
 				// add line for inputs ref
 			}
@@ -302,7 +302,7 @@ public class ComponentIHM {
 		int count = 0;
 		for (int i = 0; i < allTasks.size(); i++) {
 			Task el = allTasks.get(i);
-			if (el.isOpen()) {
+			if (el.isOpen() && !el.getService().isRemote()) {
 				// add a line for the service equation eg. (x)=s(y)
 				TaskAspect ta = new TaskAspect(el);
 				String print = ta.prettyPrint();
