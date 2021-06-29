@@ -8,32 +8,14 @@ import java.util.ArrayList;
 import inria.smarttools.core.component.*;
 import inria.smarttools.core.component.PropertyMap;
 import java.lang.String;
+import cm.uds.fuchsia.gag.model.configuration.Task;
+import cm.uds.fuchsia.gag.network.Subscription;
 
 /**
  **/
-public class SoaAppContainer extends CommunicationProtocolContainer implements inria.smarttools.core.component.Container, soaApp.InvokeToListener, soaApp.ExitListener, soaApp.DisconnectListener, soaApp.InitDataListener, soaApp.UndoListener, soaApp.LogListener, soaApp.LogUndoListener, soaApp.ReturnToListener, soaApp.ConnectToListener, soaApp.SendListener {
+public class SoaAppContainer extends CommunicationProtocolContainer implements inria.smarttools.core.component.Container, soaApp.ExitListener, soaApp.DisconnectListener, soaApp.InitDataListener, soaApp.UndoListener, soaApp.ServiceCallListener, soaApp.LogListener, soaApp.LogUndoListener, soaApp.ConnectToListener, soaApp.SendListener, soaApp.NotifyListener {
    {
       List<MethodCall> methodCalls;
-      methodCalls = calls.get("invokeTo");
-      if (methodCalls == null) {
-         methodCalls = new ArrayList<MethodCall>();
-         calls.put("invokeTo", methodCalls);
-      }
-      methodCalls.add(new MethodCall() {
-         public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
-            ((SoaAppFacade) facade).inInvokeTo(expeditorId);
-            return null;
-         	}});
-      methodCalls = calls.get("returnTo");
-      if (methodCalls == null) {
-         methodCalls = new ArrayList<MethodCall>();
-         calls.put("returnTo", methodCalls);
-      }
-      methodCalls.add(new MethodCall() {
-         public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
-            ((SoaAppFacade) facade).inReturnTo(expeditorId);
-            return null;
-         	}});
       methodCalls = calls.get("disconnect");
       if (methodCalls == null) {
          methodCalls = new ArrayList<MethodCall>();
@@ -54,6 +36,16 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
             ((SoaAppFacade) facade).quit(expeditorId);
             return null;
          	}});
+      methodCalls = calls.get("serviceCall");
+      if (methodCalls == null) {
+         methodCalls = new ArrayList<MethodCall>();
+         calls.put("serviceCall", methodCalls);
+      }
+      methodCalls.add(new MethodCall() {
+         public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
+            ((SoaAppFacade) facade).inServiceCall(expeditorId, (cm.uds.fuchsia.gag.model.configuration.Task) parameters.get("task"));
+            return null;
+         	}});
       methodCalls = calls.get("shutdown");
       if (methodCalls == null) {
          methodCalls = new ArrayList<MethodCall>();
@@ -62,6 +54,16 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
       methodCalls.add(new MethodCall() {
          public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
             ((SoaAppFacade) facade).shutdown(expeditorId);
+            return null;
+         	}});
+      methodCalls = calls.get("notify");
+      if (methodCalls == null) {
+         methodCalls = new ArrayList<MethodCall>();
+         calls.put("notify", methodCalls);
+      }
+      methodCalls.add(new MethodCall() {
+         public Object call(ContainerProxy expeditor, String expeditorId, String expeditorType, PropertyMap parameters) {
+            ((SoaAppFacade) facade).inNotify(expeditorId, (cm.uds.fuchsia.gag.network.Subscription) parameters.get("subscription"));
             return null;
          	}});
       methodCalls = calls.get("requestInitData");
@@ -118,24 +120,16 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
     **/
    protected  void initFacadeListeners(){
       super.initFacadeListeners();
-      ((SoaAppFacadeInterface) facade).addInvokeToListener(this);
       ((SoaAppFacadeInterface) facade).addExitListener(this);
       ((SoaAppFacadeInterface) facade).addDisconnectListener(this);
       ((SoaAppFacadeInterface) facade).addInitDataListener(this);
       ((SoaAppFacadeInterface) facade).addUndoListener(this);
+      ((SoaAppFacadeInterface) facade).addServiceCallListener(this);
       ((SoaAppFacadeInterface) facade).addLogListener(this);
       ((SoaAppFacadeInterface) facade).addLogUndoListener(this);
-      ((SoaAppFacadeInterface) facade).addReturnToListener(this);
       ((SoaAppFacadeInterface) facade).addConnectToListener(this);
       ((SoaAppFacadeInterface) facade).addSendListener(this);
-   }
-
-   /**
-    * InvokeToListener
-    * @throws IllegalStateException to absolutely care in business methods
-    **/
-   public  void outInvokeTo(InvokeToEvent e){
-      send(new MessageImpl("invokeTo", e.getAttributes() , null, e.getAdressee()));
+      ((SoaAppFacadeInterface) facade).addNotifyListener(this);
    }
 
    /**
@@ -171,6 +165,14 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
    }
 
    /**
+    * ServiceCallListener
+    * @throws IllegalStateException to absolutely care in business methods
+    **/
+   public  void outServiceCall(ServiceCallEvent e){
+      send(new MessageImpl("serviceCall", e.getAttributes() , null, e.getAdressee()));
+   }
+
+   /**
     * LogListener
     * @throws IllegalStateException to absolutely care in business methods
     **/
@@ -187,14 +189,6 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
    }
 
    /**
-    * ReturnToListener
-    * @throws IllegalStateException to absolutely care in business methods
-    **/
-   public  void outReturnTo(ReturnToEvent e){
-      send(new MessageImpl("returnTo", e.getAttributes() , null, e.getAdressee()));
-   }
-
-   /**
     * ConnectToListener
     * @throws IllegalStateException to absolutely care in business methods
     **/
@@ -208,6 +202,14 @@ public class SoaAppContainer extends CommunicationProtocolContainer implements i
     **/
    public  void send(SendEvent e){
       send(new MessageImpl("send", e.getAttributes() , null, e.getAdressee()));
+   }
+
+   /**
+    * NotifyListener
+    * @throws IllegalStateException to absolutely care in business methods
+    **/
+   public  void outNotify(NotifyEvent e){
+      send(new MessageImpl("notify", e.getAttributes() , null, e.getAdressee()));
    }
 
    /**

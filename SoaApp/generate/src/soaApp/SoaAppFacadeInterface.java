@@ -11,20 +11,6 @@ public interface SoaAppFacadeInterface {
    //
 
    /**
-    * invokeTo
-    * null
-    * @param expeditor is the component name who sent this message
-    **/
-   public  void inInvokeTo(String expeditor);
-
-   /**
-    * returnTo
-    * null
-    * @param expeditor is the component name who sent this message
-    **/
-   public  void inReturnTo(String expeditor);
-
-   /**
     * disconnect
     * disconnect
     * @param expeditor is the component name who sent this message
@@ -39,6 +25,13 @@ public interface SoaAppFacadeInterface {
    public  void quit(String expeditor);
 
    /**
+    * serviceCall
+    * null
+    * @param expeditor is the component name who sent this message
+    **/
+   public  void inServiceCall(String expeditor, cm.uds.fuchsia.gag.model.configuration.Task task);
+
+   /**
     * shutdown
     * shutdown
     * @param expeditor is the component name who sent this message
@@ -46,23 +39,18 @@ public interface SoaAppFacadeInterface {
    public  void shutdown(String expeditor);
 
    /**
+    * notify
+    * null
+    * @param expeditor is the component name who sent this message
+    **/
+   public  void inNotify(String expeditor, cm.uds.fuchsia.gag.network.Subscription subscription);
+
+   /**
     * requestInitData
     * 
     * @param expeditor is the component name who sent this message
     **/
    public  Object requestTree(String expeditor);
-
-   /**
-    * invokeTo
-    * null
-    **/
-   public  void addInvokeToListener(InvokeToListener data);
-
-   /**
-    * invokeTo
-    * null
-    **/
-   public  void removeInvokeToListener(InvokeToListener data);
 
    /**
     * exit
@@ -113,6 +101,18 @@ public interface SoaAppFacadeInterface {
    public  void removeUndoListener(UndoListener data);
 
    /**
+    * serviceCall
+    * null
+    **/
+   public  void addServiceCallListener(ServiceCallListener data);
+
+   /**
+    * serviceCall
+    * null
+    **/
+   public  void removeServiceCallListener(ServiceCallListener data);
+
+   /**
     * log
     * 
     **/
@@ -137,18 +137,6 @@ public interface SoaAppFacadeInterface {
    public  void removeLogUndoListener(LogUndoListener data);
 
    /**
-    * returnTo
-    * null
-    **/
-   public  void addReturnToListener(ReturnToListener data);
-
-   /**
-    * returnTo
-    * null
-    **/
-   public  void removeReturnToListener(ReturnToListener data);
-
-   /**
     * connectTo
     * 
     **/
@@ -171,6 +159,18 @@ public interface SoaAppFacadeInterface {
     * 
     **/
    public  void removeSendListener(SendListener data);
+
+   /**
+    * notify
+    * null
+    **/
+   public  void addNotifyListener(NotifyListener data);
+
+   /**
+    * notify
+    * null
+    **/
+   public  void removeNotifyListener(NotifyListener data);
 
 
 }

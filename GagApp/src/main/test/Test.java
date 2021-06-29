@@ -1,5 +1,6 @@
 package main.test;
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -89,6 +90,15 @@ static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\Gag
 		sem.getEquations().add(eq2);
 		//new GAGAspect(g).run();
 		JAXBContext ctx;
+		 String currentPath;
+		try {
+			currentPath = new java.io.File(".").getCanonicalPath();
+
+			 System.out.println("Current dir:" + currentPath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			ctx = JAXBContext.newInstance(GAG.class,Configuration.class,IdExpression.class, FunctionExpression.class);
 			

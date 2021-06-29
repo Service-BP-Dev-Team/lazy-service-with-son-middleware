@@ -13,11 +13,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    //
 
    /**
-    * invokeTo
-    * null
-    **/
-   protected Vector<InvokeToListener> invokeToListeners = new Vector<InvokeToListener>();
-   /**
     * exit
     * 
     **/
@@ -38,6 +33,11 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     **/
    protected Vector<UndoListener> undoListeners = new Vector<UndoListener>();
    /**
+    * serviceCall
+    * null
+    **/
+   protected Vector<ServiceCallListener> serviceCallListeners = new Vector<ServiceCallListener>();
+   /**
     * log
     * 
     **/
@@ -48,11 +48,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     **/
    protected Vector<LogUndoListener> logUndoListeners = new Vector<LogUndoListener>();
    /**
-    * returnTo
-    * null
-    **/
-   protected Vector<ReturnToListener> returnToListeners = new Vector<ReturnToListener>();
-   /**
     * connectTo
     * 
     **/
@@ -62,6 +57,11 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     * 
     **/
    protected Vector<SendListener> sendListeners = new Vector<SendListener>();
+   /**
+    * notify
+    * null
+    **/
+   protected Vector<NotifyListener> notifyListeners = new Vector<NotifyListener>();
    /**
     **/
    private String idName;
@@ -106,24 +106,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
-    * invokeTo
-    * null
-    * @param expeditor is the component name who sent this message
-    **/
-   public  void inInvokeTo(String expeditor){
-      super.inInvokeTo(expeditor);
-   }
-
-   /**
-    * returnTo
-    * null
-    * @param expeditor is the component name who sent this message
-    **/
-   public  void inReturnTo(String expeditor){
-      super.inReturnTo(expeditor);
-   }
-
-   /**
     * disconnect
     * disconnect
     * @param expeditor is the component name who sent this message
@@ -142,6 +124,15 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
+    * serviceCall
+    * null
+    * @param expeditor is the component name who sent this message
+    **/
+   public  void inServiceCall(String expeditor, cm.uds.fuchsia.gag.model.configuration.Task task){
+      super.inServiceCall(expeditor, task);
+   }
+
+   /**
     * shutdown
     * shutdown
     * @param expeditor is the component name who sent this message
@@ -151,35 +142,21 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
+    * notify
+    * null
+    * @param expeditor is the component name who sent this message
+    **/
+   public  void inNotify(String expeditor, cm.uds.fuchsia.gag.network.Subscription subscription){
+      super.inNotify(expeditor, subscription);
+   }
+
+   /**
     * requestInitData
     * 
     * @param expeditor is the component name who sent this message
     **/
    public  Object requestTree(String expeditor){
       return super.requestTree(expeditor);
-   }
-
-   /**
-    * invokeTo
-    * null
-    * @param ev a <code>Object</code> value : data
-    **/
-   public  void outInvokeTo(){
-      outInvokeTo(null);
-   }
-
-   /**
-    * invokeTo
-    * null
-    * @param adressee component name, which will receive this message
-    * @param ev a <code>Object</code> value : data
-    **/
-   public  void outInvokeTo(String adressee){
-      PropertyMap args = new PropertyMap();
-      InvokeToEvent ev =  new InvokeToEvent(adressee);
-      ev.setAttributes(args);
-      for(int i = 0 ; i < invokeToListeners.size() ; i++)
-      (( InvokeToListener ) invokeToListeners.elementAt(i)).outInvokeTo(ev);
    }
 
    /**
@@ -278,6 +255,30 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
+    * serviceCall
+    * null
+    * @param ev a <code>Object</code> value : data
+    **/
+   public  void outServiceCall(cm.uds.fuchsia.gag.model.configuration.Task task){
+      outServiceCall(null, task);
+   }
+
+   /**
+    * serviceCall
+    * null
+    * @param adressee component name, which will receive this message
+    * @param ev a <code>Object</code> value : data
+    **/
+   public  void outServiceCall(String adressee, cm.uds.fuchsia.gag.model.configuration.Task task){
+      PropertyMap args = new PropertyMap();
+      args.put("task",task);
+      ServiceCallEvent ev =  new ServiceCallEvent(adressee, task);
+      ev.setAttributes(args);
+      for(int i = 0 ; i < serviceCallListeners.size() ; i++)
+      (( ServiceCallListener ) serviceCallListeners.elementAt(i)).outServiceCall(ev);
+   }
+
+   /**
     * log
     * 
     * @param ev a <code>Object</code> value : data
@@ -324,29 +325,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
       ev.setAttributes(args);
       for(int i = 0 ; i < logUndoListeners.size() ; i++)
       (( LogUndoListener ) logUndoListeners.elementAt(i)).logUndo(ev);
-   }
-
-   /**
-    * returnTo
-    * null
-    * @param ev a <code>Object</code> value : data
-    **/
-   public  void outReturnTo(){
-      outReturnTo(null);
-   }
-
-   /**
-    * returnTo
-    * null
-    * @param adressee component name, which will receive this message
-    * @param ev a <code>Object</code> value : data
-    **/
-   public  void outReturnTo(String adressee){
-      PropertyMap args = new PropertyMap();
-      ReturnToEvent ev =  new ReturnToEvent(adressee);
-      ev.setAttributes(args);
-      for(int i = 0 ; i < returnToListeners.size() ; i++)
-      (( ReturnToListener ) returnToListeners.elementAt(i)).outReturnTo(ev);
    }
 
    /**
@@ -405,19 +383,27 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
-    * invokeTo
+    * notify
     * null
+    * @param ev a <code>Object</code> value : data
     **/
-   public  void addInvokeToListener(InvokeToListener data){
-      invokeToListeners.add(data);
+   public  void outNotify(cm.uds.fuchsia.gag.network.Subscription subscription){
+      outNotify(null, subscription);
    }
 
    /**
-    * invokeTo
+    * notify
     * null
+    * @param adressee component name, which will receive this message
+    * @param ev a <code>Object</code> value : data
     **/
-   public  void removeInvokeToListener(InvokeToListener data){
-      invokeToListeners.remove(data);
+   public  void outNotify(String adressee, cm.uds.fuchsia.gag.network.Subscription subscription){
+      PropertyMap args = new PropertyMap();
+      args.put("subscription",subscription);
+      NotifyEvent ev =  new NotifyEvent(adressee, subscription);
+      ev.setAttributes(args);
+      for(int i = 0 ; i < notifyListeners.size() ; i++)
+      (( NotifyListener ) notifyListeners.elementAt(i)).outNotify(ev);
    }
 
    /**
@@ -485,6 +471,22 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
+    * serviceCall
+    * null
+    **/
+   public  void addServiceCallListener(ServiceCallListener data){
+      serviceCallListeners.add(data);
+   }
+
+   /**
+    * serviceCall
+    * null
+    **/
+   public  void removeServiceCallListener(ServiceCallListener data){
+      serviceCallListeners.remove(data);
+   }
+
+   /**
     * log
     * 
     **/
@@ -517,22 +519,6 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
    }
 
    /**
-    * returnTo
-    * null
-    **/
-   public  void addReturnToListener(ReturnToListener data){
-      returnToListeners.add(data);
-   }
-
-   /**
-    * returnTo
-    * null
-    **/
-   public  void removeReturnToListener(ReturnToListener data){
-      returnToListeners.remove(data);
-   }
-
-   /**
     * connectTo
     * 
     **/
@@ -562,6 +548,22 @@ public class SoaAppFacade extends SoaApp implements SoaAppFacadeInterface {
     **/
    public  void removeSendListener(SendListener data){
       sendListeners.remove(data);
+   }
+
+   /**
+    * notify
+    * null
+    **/
+   public  void addNotifyListener(NotifyListener data){
+      notifyListeners.add(data);
+   }
+
+   /**
+    * notify
+    * null
+    **/
+   public  void removeNotifyListener(NotifyListener data){
+      notifyListeners.remove(data);
    }
 
 

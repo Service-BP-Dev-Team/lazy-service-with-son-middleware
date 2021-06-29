@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
@@ -16,6 +17,7 @@ import cm.uds.fuchsia.gag.network.Component;
 import cm.uds.fuchsia.gag.network.Subscription;
 import cm.uds.fuchsia.gag.specification.aspect.GAGAspect;
 import cm.uds.fuchsia.gag.ui.component.ComponentIHM;
+import cm.uds.fuchsia.gag.util.Console;
 
 public class Launcher {
 
@@ -37,14 +39,26 @@ static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\Gag
 			GAG mygag= (GAG) umsh.unmarshal(new File(gagSpecificationPath));
 			GAGAspect gasp=new GAGAspect(mygag);
 			ComponentIHM window = new ComponentIHM();
-			window.setVisible(true);
+			Console.debug("The component name is : "+componentName);
 			window.disposeTheGraph(mygag);
 			window.setTitle(componentName);
+			window.setVisible(true);
 			net = new Component();
 			net.setIHM(window);
 			net.setSUBSCRIPTION_LIST(new ArrayList<Subscription>());
 			net.setCOMPONENT_NAME(componentName);
 			net.setASSOCIATE_GAG(mygag);
+			String currentPath;
+			try {
+				currentPath = new java.io.File(".").getCanonicalPath();
+
+				 System.out.println("Current dir:" + currentPath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			
 			//gasp.runWithExternalOuputInterface(window.getGraphLayout());
 		} catch (JAXBException e1) {
 			// TODO Auto-generated catch block

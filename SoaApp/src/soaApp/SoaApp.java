@@ -2,10 +2,12 @@ package soaApp;
 
 import main.Launcher;
 import cm.uds.fuchsia.gag.network.Component;
-
+import cm.uds.fuchsia.gag.model.configuration.Task;
+import cm.uds.fuchsia.gag.network.Subscription;
 
 public abstract class SoaApp extends inria.communicationprotocol.CommunicationProtocolFacade {
-	protected Component network = null;
+	protected Component component = null;
+	public static String SPECIFICATION_FOLDER="gag-specification";
 	public SoaApp () {
 		//view = getView ();
 		//SwingUtilities.invokeLater(new Runnable() {
@@ -13,31 +15,31 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
        //         view = getView ();
         //    }
         //});
-		String gagSpecificationPath ="E:\\PhD Recherche\\Implementation\\Workspace Eclipse SON\\GagApp\\gag-specification\\gag.xml";
-		network= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
+		
+		//network= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
 	}
 
-	public void inInvokeTo(String expeditor) {
+	public void inServiceCall(String expeditor, Task task) {
 	}
 	
-	public void inReturnTo(String expeditor) {
+	public void inNotify(String expeditor, Subscription subscription) {
 		
 	}
 
-	public abstract void outInvokeTo(String expeditor);
-	public abstract void outReturnTo(String expeditor);
-public Component getNetwork() {
-	if (network == null) {
-		String gagSpecificationPath ="E:\\PhD Recherche\\Implementation\\Workspace Eclipse SON\\GagApp\\gag-specification\\gag.xml";
-		network= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
+	public abstract void outServiceCall(String expeditor, Task task);
+	public abstract void outNotify(String expeditor, Subscription subscription);
+public Component getComponent() {
+	if (component == null) {
+		String gagSpecificationPath =SPECIFICATION_FOLDER+"\\"+this.getIdName()+".xml"; //this is a relative path
+		component= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
 	}
-	return network;
+	return component;
 }
 
 @Override
 protected void neighbourJustConnected(String name, String service) {
 		if (name.equals("ComponentsManager")) {
-			network = getNetwork();
+			component = getComponent();
 		}
 	}
 

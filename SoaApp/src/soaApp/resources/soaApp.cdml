@@ -4,17 +4,21 @@
 	<containerclass name="SoaAppContainer"/>
 	<facadeclass name="SoaAppFacade" userclassname="SoaApp"/>
 
-	<input name="invokeTo" method="inInvokeTo">
+	<input name="serviceCall" method="inServiceCall">
+	<attribute name="task" javatype="cm.uds.fuchsia.gag.model.configuration.Task"/>
 	</input>
 	
-	<input name="returnTo" method="inReturnTo">
+	<input name="notify" method="inNotify">
+	<attribute name="subscription" javatype="cm.uds.fuchsia.gag.network.Subscription"/>
 	</input>
 	
 	
-    <output name="returnTo" method="outReturnTo">
+    <output name="serviceCall" method="outServiceCall">
+    <attribute name="task" javatype="cm.uds.fuchsia.gag.model.configuration.Task"/>
 	</output>
 	
-	<output name="invokeTo" method="outInvokeTo">
+	<output name="notify" method="outNotify">
+	<attribute name="subscription" javatype="cm.uds.fuchsia.gag.network.Subscription"/>
 	</output>
 	
 </component>
