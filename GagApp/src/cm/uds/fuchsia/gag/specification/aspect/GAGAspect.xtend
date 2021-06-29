@@ -16,9 +16,17 @@ import java.util.List
 import cm.uds.fuchsia.gag.model.specification.Guard
 import cm.uds.fuchsia.gag.configuration.aspect.PendingLocalFunctionComputationAspect
 import cm.uds.fuchsia.gag.configuration.aspect.ConfigurationAspect
+import cm.uds.fuchsia.gag.network.Component
 
 class GAGAspect extends GAG{
+	private Component component;
 	
+	def Component getComponent(){
+		return component;
+	}
+	def void setComponent(Component comp){
+		component=comp;
+	}
 	new(){
 		
 	}
@@ -54,7 +62,7 @@ class GAGAspect extends GAG{
 			Console.debug("La configuration resultante est " + conf.print());
 			openTask = getOpenTask( conf.root);
 		}
-		Console.debug("Exécution terminée !");
+		Console.debug("Exï¿½cution terminï¿½e !");
 	}
 	
 	def void runWithExternalOuputInterface(OutputInterface  OI) {
@@ -80,7 +88,7 @@ class GAGAspect extends GAG{
 			OI.update(this);
 			openTask = getOpenTask( conf.root);
 		}
-		Console.debug("Exécution terminée !");
+		Console.debug("Exï¿½cution terminï¿½e !");
 	}
 
 	
@@ -100,7 +108,7 @@ class GAGAspect extends GAG{
 	def void chooseTheAxiom() {
 		val services = this.services;
 		val axioms = this.axioms;
-		Console.debug("Veuillez choisir le service axiome de démarrage parmi les services suivants : ");
+		Console.debug("Veuillez choisir le service axiome de dï¿½marrage parmi les services suivants : ");
 		var txtAf = "";
 		for (i : 0 ..< axioms.size) {
 			val element = axioms.get(i) as Service;
@@ -142,11 +150,11 @@ class GAGAspect extends GAG{
 	def Task createRootTask(Service serviceChoice){
 		var root = new Task();
 		root.service = serviceChoice;
-		Console.debug("Veuillez fournir les valeurs des entrées de l'axiome ");
+		Console.debug("Veuillez fournir les valeurs des entrï¿½es de l'axiome ");
 		for (i : 0 ..< root.service.inputParameters.size) {
 			var data = new Data();
 			data.parameter = root.service.inputParameters.get(i);
-			Console.debug("Veuillez entrer la valeur du paramètre " + data.parameter.name);
+			Console.debug("Veuillez entrer la valeur du paramï¿½tre " + data.parameter.name);
 			val ecD= new EncapsulatedValue(Console.readConsoleLine(""));
 			data.value =ecD ;
 			ecD.containerRef = data;
@@ -164,7 +172,7 @@ class GAGAspect extends GAG{
 	}
 
 	def Task chooseTask(ArrayList<Task> openTasks) {
-		Console.debug("Veuillez choisir la tâche à traiter parmi les tâches suivantes : ");
+		Console.debug("Veuillez choisir la tï¿½che ï¿½ traiter parmi les tï¿½ches suivantes : ");
 		var txtAf = "";
 		for (i : 0 ..< openTasks.size) {
 			val element = openTasks.get(i);
@@ -190,7 +198,7 @@ class GAGAspect extends GAG{
 		
 		}
 		if(applicableRules.size!=0){
-			Console.debug("Veuillez choisir la règle de décomposition à appliquer parmi les règles suivantes : ");
+			Console.debug("Veuillez choisir la rï¿½gle de dï¿½composition ï¿½ appliquer parmi les rï¿½gles suivantes : ");
 			var txtAf = "";
 			for(i:0 ..< applicableRules.size){
 				Console.debug((i + 1) + "- " + applicableRules.get(i).name)
@@ -200,7 +208,7 @@ class GAGAspect extends GAG{
 			val rule = applicableRules.get(id - 1);
 			return rule;
 		}else {
-			Console.debug("Aucune règle de décomposition n'est actuellement applicable pour cette tâche ");
+			Console.debug("Aucune rï¿½gle de dï¿½composition n'est actuellement applicable pour cette tï¿½che ");
 			Console.readConsoleLine("");
 			return null;
 		}
@@ -305,6 +313,18 @@ class GAGAspect extends GAG{
 		
 		//code to compute function
 		this.computeFunction(conf.pendingLocalComputations);
+		
+		//send remote task to remote component, only applied when executing with the network
+		if(component!=null){
+			for(i:0 ..<t.subTasks.size){
+				var el=t.subTasks.get(i);
+				if(el.service.remote){
+					// send the task to remote component
+					component.sendTask(el);
+				}
+			}
+			
+		}
 	}
 
 	def cm.uds.fuchsia.gag.model.configuration.Data findReference(String[] ref, ArrayList<Task> tasks) {

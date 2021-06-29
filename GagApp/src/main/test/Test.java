@@ -113,7 +113,7 @@ static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\Gag
 			GAGAspect gasp=new GAGAspect(mygag);
 			ComponentIHM window = new ComponentIHM();
 			window.setVisible(true);
-			window.disposeTheGraph(mygag);
+			window.disposeTheGraph(new GAGAspect(mygag));
 			window.setTitle("My Component");
 			//gasp.runWithExternalOuputInterface(window.getGraphLayout());
 		} catch (JAXBException e1) {

@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
@@ -13,15 +14,17 @@ import cm.uds.fuchsia.gag.model.specification.FunctionExpression;
 import cm.uds.fuchsia.gag.model.specification.GAG;
 import cm.uds.fuchsia.gag.model.specification.IdExpression;
 import cm.uds.fuchsia.gag.network.Component;
+import cm.uds.fuchsia.gag.network.ComponentMiddleware;
 import cm.uds.fuchsia.gag.network.Subscription;
 import cm.uds.fuchsia.gag.specification.aspect.GAGAspect;
 import cm.uds.fuchsia.gag.ui.component.ComponentIHM;
+import cm.uds.fuchsia.gag.util.Console;
 
 public class Launcher {
 
 static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\GagApp\\bin";
 	
-	public static Component launchComponent(String componentName, String gagSpecificationPath) {
+	public static Component launchComponent(String componentName, String gagSpecificationPath, ComponentMiddleware middleware) {
         Component net=null;
 		JAXBContext ctx;
 		try { 
@@ -37,14 +40,20 @@ static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\Gag
 			GAG mygag= (GAG) umsh.unmarshal(new File(gagSpecificationPath));
 			GAGAspect gasp=new GAGAspect(mygag);
 			ComponentIHM window = new ComponentIHM();
-			window.setVisible(true);
-			window.disposeTheGraph(mygag);
-			window.setTitle(componentName);
+			Console.debug("The component name is : "+componentName);
+			
 			net = new Component();
-			net.setIHM(window);
-			net.setSUBSCRIPTION_LIST(new ArrayList<Subscription>());
-			net.setCOMPONENT_NAME(componentName);
-			net.setASSOCIATE_GAG(mygag);
+			net.setIhm(window);
+			net.setSubscriptionList(new ArrayList<Subscription>());
+			net.setComponentName(componentName);
+			GAGAspect mygagAspect = new GAGAspect(mygag);
+			mygagAspect.setComponent(net);
+			net.setAssociateGAG(mygagAspect);
+			net.setMiddleware(middleware);
+			window.disposeTheGraph(mygagAspect);
+			window.setTitle(componentName);
+			window.setVisible(true);
+			
 			//gasp.runWithExternalOuputInterface(window.getGraphLayout());
 		} catch (JAXBException e1) {
 			// TODO Auto-generated catch block

@@ -185,8 +185,9 @@ public class ComponentIHM {
 		panelConfiguration.add(panelConfigurationGraph, BorderLayout.CENTER);
 	}
 
-	public void disposeTheGraph(GAG gag) {
+	public void disposeTheGraph(GAGAspect gag) {
 		this.graphLayout = new GAGGraphAspect(gag);
+		this.graphLayout.setComponent(gag.getComponent()); // to ensure that the graph is connected to the network
 		this.graphLayout.setWindowContainer(this);
 		this.graphLayout.dispose(panelConfigurationGraph);
 	}

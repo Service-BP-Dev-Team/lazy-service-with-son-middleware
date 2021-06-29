@@ -18,6 +18,7 @@ import cm.uds.fuchsia.gag.model.specification.Parameter;
 import cm.uds.fuchsia.gag.model.specification.RuntimeData;
 import cm.uds.fuchsia.gag.model.specification.SemanticRule;
 import cm.uds.fuchsia.gag.model.specification.Service;
+import cm.uds.fuchsia.gag.network.Component;
 import cm.uds.fuchsia.gag.specification.aspect.GuardAspect;
 import cm.uds.fuchsia.gag.specification.aspect.OutputInterface;
 import cm.uds.fuchsia.gag.util.Console;
@@ -29,6 +30,16 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 @SuppressWarnings("all")
 public class GAGAspect extends GAG {
+  private Component component;
+  
+  public Component getComponent() {
+    return this.component;
+  }
+  
+  public void setComponent(final Component comp) {
+    this.component = comp;
+  }
+  
   public GAGAspect() {
   }
   
@@ -478,6 +489,23 @@ public class GAGAspect extends GAG {
     }
     ArrayList<PendingLocalFunctionComputation> _pendingLocalComputations = conf.getPendingLocalComputations();
     this.computeFunction(_pendingLocalComputations);
+    boolean _notEquals = (!Objects.equal(this.component, null));
+    if (_notEquals) {
+      ArrayList<Task> _subTasks_1 = t.getSubTasks();
+      int _size_2 = _subTasks_1.size();
+      ExclusiveRange _doubleDotLessThan_2 = new ExclusiveRange(0, _size_2, true);
+      for (final Integer i_2 : _doubleDotLessThan_2) {
+        {
+          ArrayList<Task> _subTasks_2 = t.getSubTasks();
+          Task el = _subTasks_2.get((i_2).intValue());
+          Service _service = el.getService();
+          Boolean _isRemote = _service.isRemote();
+          if ((_isRemote).booleanValue()) {
+            this.component.sendTask(el);
+          }
+        }
+      }
+    }
   }
   
   public Data findReference(final String[] ref, final ArrayList<Task> tasks) {

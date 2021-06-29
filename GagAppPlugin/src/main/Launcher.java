@@ -14,6 +14,7 @@ import cm.uds.fuchsia.gag.model.specification.FunctionExpression;
 import cm.uds.fuchsia.gag.model.specification.GAG;
 import cm.uds.fuchsia.gag.model.specification.IdExpression;
 import cm.uds.fuchsia.gag.network.Component;
+import cm.uds.fuchsia.gag.network.ComponentMiddleware;
 import cm.uds.fuchsia.gag.network.Subscription;
 import cm.uds.fuchsia.gag.specification.aspect.GAGAspect;
 import cm.uds.fuchsia.gag.ui.component.ComponentIHM;
@@ -23,7 +24,7 @@ public class Launcher {
 
 static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\GagApp\\bin";
 	
-	public static Component launchComponent(String componentName, String gagSpecificationPath) {
+	public static Component launchComponent(String componentName, String gagSpecificationPath, ComponentMiddleware middleware) {
         Component net=null;
 		JAXBContext ctx;
 		try { 
@@ -40,24 +41,18 @@ static String classPath ="E:\\PhD Recherche\\Implementation\\workspace-java\\Gag
 			GAGAspect gasp=new GAGAspect(mygag);
 			ComponentIHM window = new ComponentIHM();
 			Console.debug("The component name is : "+componentName);
-			window.disposeTheGraph(mygag);
+			
+			net = new Component();
+			net.setIhm(window);
+			net.setSubscriptionList(new ArrayList<Subscription>());
+			net.setComponentName(componentName);
+			GAGAspect mygagAspect = new GAGAspect(mygag);
+			mygagAspect.setComponent(net);
+			net.setAssociateGAG(mygagAspect);
+			net.setMiddleware(middleware);
+			window.disposeTheGraph(mygagAspect);
 			window.setTitle(componentName);
 			window.setVisible(true);
-			net = new Component();
-			net.setIHM(window);
-			net.setSUBSCRIPTION_LIST(new ArrayList<Subscription>());
-			net.setCOMPONENT_NAME(componentName);
-			net.setASSOCIATE_GAG(mygag);
-			String currentPath;
-			try {
-				currentPath = new java.io.File(".").getCanonicalPath();
-
-				 System.out.println("Current dir:" + currentPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 			
 			//gasp.runWithExternalOuputInterface(window.getGraphLayout());
 		} catch (JAXBException e1) {

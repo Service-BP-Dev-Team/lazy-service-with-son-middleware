@@ -2,10 +2,11 @@ package soaApp;
 
 import main.Launcher;
 import cm.uds.fuchsia.gag.network.Component;
+import cm.uds.fuchsia.gag.network.ComponentMiddleware;
 import cm.uds.fuchsia.gag.model.configuration.Task;
 import cm.uds.fuchsia.gag.network.Subscription;
 
-public abstract class SoaApp extends inria.communicationprotocol.CommunicationProtocolFacade {
+public abstract class SoaApp extends inria.communicationprotocol.CommunicationProtocolFacade implements ComponentMiddleware {
 	protected Component component = null;
 	public static String SPECIFICATION_FOLDER="gag-specification";
 	public SoaApp () {
@@ -20,10 +21,11 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
 	}
 
 	public void inServiceCall(String expeditor, Task task) {
+		component.receiveTask(task);
 	}
 	
 	public void inNotify(String expeditor, Subscription subscription) {
-		
+		component.receiveNotification(subscription);
 	}
 
 	public abstract void outServiceCall(String expeditor, Task task);
@@ -31,7 +33,7 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
 public Component getComponent() {
 	if (component == null) {
 		String gagSpecificationPath =SPECIFICATION_FOLDER+"\\"+this.getIdName()+".xml"; //this is a relative path
-		component= Launcher.launchComponent(this.getIdName(), gagSpecificationPath);
+		component= Launcher.launchComponent(this.getIdName(), gagSpecificationPath,this); // use the current object as middleware
 	}
 	return component;
 }
