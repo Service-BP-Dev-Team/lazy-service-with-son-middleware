@@ -325,6 +325,9 @@ class GAGAspect extends GAG{
 			}
 			
 		}
+		
+		//notify components
+		this.notifyComponents();
 	}
 
 	def cm.uds.fuchsia.gag.model.configuration.Data findReference(String[] ref, ArrayList<Task> tasks) {
@@ -412,6 +415,20 @@ class GAGAspect extends GAG{
 			data.value =ecD ;
 			ecD.containerRef = data;
 			t.outputs.add(data);
+		}
+	}
+	
+	// method to notify component across the network
+	def void notifyComponents(){
+		if(component!=null){
+			for(i:0 ..<component.subscriptionList.size){
+				var sub=component.subscriptionList.get(i);
+				var data = sub.data;
+				var ecData = data.value as EncapsulatedValue;
+				if(!ecData.^null){
+					component.sendNotification(sub);
+				}
+			}
 		}
 	}
 	

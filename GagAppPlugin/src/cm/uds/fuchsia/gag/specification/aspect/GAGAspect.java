@@ -19,6 +19,7 @@ import cm.uds.fuchsia.gag.model.specification.RuntimeData;
 import cm.uds.fuchsia.gag.model.specification.SemanticRule;
 import cm.uds.fuchsia.gag.model.specification.Service;
 import cm.uds.fuchsia.gag.network.Component;
+import cm.uds.fuchsia.gag.network.Subscription;
 import cm.uds.fuchsia.gag.specification.aspect.GuardAspect;
 import cm.uds.fuchsia.gag.specification.aspect.OutputInterface;
 import cm.uds.fuchsia.gag.util.Console;
@@ -506,6 +507,7 @@ public class GAGAspect extends GAG {
         }
       }
     }
+    this.notifyComponents();
   }
   
   public Data findReference(final String[] ref, final ArrayList<Task> tasks) {
@@ -661,6 +663,29 @@ public class GAGAspect extends GAG {
         ecD.setContainerRef(data);
         ArrayList<Data> _outputs = t.getOutputs();
         _outputs.add(data);
+      }
+    }
+  }
+  
+  public void notifyComponents() {
+    boolean _notEquals = (!Objects.equal(this.component, null));
+    if (_notEquals) {
+      ArrayList<Subscription> _subscriptionList = this.component.getSubscriptionList();
+      int _size = _subscriptionList.size();
+      ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
+      for (final Integer i : _doubleDotLessThan) {
+        {
+          ArrayList<Subscription> _subscriptionList_1 = this.component.getSubscriptionList();
+          Subscription sub = _subscriptionList_1.get((i).intValue());
+          Data data = sub.getData();
+          Object _value = data.getValue();
+          EncapsulatedValue ecData = ((EncapsulatedValue) _value);
+          boolean _isNull = ecData.isNull();
+          boolean _not = (!_isNull);
+          if (_not) {
+            this.component.sendNotification(sub);
+          }
+        }
       }
     }
   }
