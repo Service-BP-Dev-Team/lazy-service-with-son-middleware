@@ -54,6 +54,7 @@ public class ComponentIHM {
 	private JButton btnStart;
 	private JPanel panelConfigurationEquations;
 	private ArrayList<Subscription> subscriptionsList;
+	private JPanel panelSubscriptionsContent;
 
 	/**
 	 * Launch the application.
@@ -85,7 +86,7 @@ public class ComponentIHM {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 703, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/*
+		
 		try {
 			// UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
 			UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
@@ -95,7 +96,7 @@ public class ComponentIHM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 
@@ -170,6 +171,9 @@ public class ComponentIHM {
 
 		JLabel lblOutputTitle = new JLabel("Outputs / Subscriptions");
 		panelOutputsTitle.add(lblOutputTitle);
+		
+		panelSubscriptionsContent= new JPanel();
+		panelOutputs.add(panelSubscriptionsContent, BorderLayout.CENTER);
 
 		JPanel panelConfiguration = new JPanel();
 		frame.getContentPane().add(panelConfiguration, BorderLayout.CENTER);
@@ -191,11 +195,17 @@ public class ComponentIHM {
 		this.graphLayout.setWindowContainer(this);
 		this.graphLayout.dispose(panelConfigurationGraph);
 	}
+	
+	public void disposeTheGraph() {
+		
+		this.graphLayout.dispose(panelConfigurationGraph);
+	}
 
 	public void updateUI() {
 
 		this.updateConfigurationValuePanel();
 		this.updateConfigurationEquationsPanel();
+		this.updateSubscriptionsPanel();
 	}
 
 	public void updateConfigurationValuePanel() {
@@ -268,6 +278,29 @@ public class ComponentIHM {
 
 	public void setTitle(String title) {
 		frame.setTitle(title);
+	}
+	
+	public void updateSubscriptionsPanel(){
+		ArrayList<Subscription> remoteSubscriptions = new ArrayList<Subscription>();
+		//get remote subscriptions
+		for(int i=0; i< this.graphLayout.getComponent().getSubscriptionList().size();i++){
+			Subscription el = this.graphLayout.getComponent().getSubscriptionList().get(i);
+			if(el.isRemote()){
+			remoteSubscriptions.add(el);
+			}
+		}
+		JPanel[][] panes = UIUtil.layout(remoteSubscriptions.size(), 3, panelSubscriptionsContent);
+		
+		for(int i=0;i<remoteSubscriptions.size();i++){
+			Subscription el = remoteSubscriptions.get(i);
+			panes[i][0].add(new JLabel(el.getData().getName()));
+			panes[i][1].add(new JLabel("->"));
+			panes[i][2].add(new JLabel(el.getComponentName()));
+		}
+		// update the font
+		changeFont(panelSubscriptionsContent, new Font("Arial", 0, 15), 3);
+		panelSubscriptionsContent.updateUI();
+		
 	}
 
 	public void updateConfigurationEquationsPanel() {

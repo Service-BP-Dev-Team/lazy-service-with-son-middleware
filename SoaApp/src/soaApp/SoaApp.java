@@ -21,7 +21,7 @@ public abstract class SoaApp extends inria.communicationprotocol.CommunicationPr
 	}
 
 	public void inServiceCall(String expeditor, Task task) {
-		component.receiveTask(task);
+		component.receiveTask(expeditor,task);
 	}
 	
 	public void inNotify(String expeditor, Subscription subscription) {

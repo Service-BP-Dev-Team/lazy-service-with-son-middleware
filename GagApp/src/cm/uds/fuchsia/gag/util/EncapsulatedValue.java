@@ -32,7 +32,7 @@ public class EncapsulatedValue {
 			val=myNext.value;
 			myNext=myNext.next;
 		}
-		
+		if(val!=null){value=val;};//refresh Value
 		return val;
 	}
 
