@@ -518,6 +518,7 @@ public class GAGAspect extends GAG {
     String _get_1 = ref[1];
     String _string_1 = _get_1.toString();
     String serviceParameter = _string_1.trim();
+    Console.debug(((serviceName + ".") + serviceParameter));
     int _size = tasks.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
     for (final Integer i : _doubleDotLessThan) {
@@ -540,6 +541,7 @@ public class GAGAspect extends GAG {
               ArrayList<Data> _inputs_2 = element.getInputs();
               Data _get_3 = _inputs_2.get((j).intValue());
               objectRef = _get_3;
+              Console.debug("i found");
             }
           }
           ArrayList<Data> _outputs = element.getOutputs();
@@ -555,6 +557,7 @@ public class GAGAspect extends GAG {
               ArrayList<Data> _outputs_2 = element.getOutputs();
               Data _get_5 = _outputs_2.get((j_1).intValue());
               objectRef = _get_5;
+              Console.debug("i found");
             }
           }
         }
@@ -670,13 +673,14 @@ public class GAGAspect extends GAG {
   public void notifyComponents() {
     boolean _notEquals = (!Objects.equal(this.component, null));
     if (_notEquals) {
+      ArrayList<Subscription> array = new ArrayList<Subscription>();
       ArrayList<Subscription> _subscriptionList = this.component.getSubscriptionList();
-      int _size = _subscriptionList.size();
+      array.addAll(_subscriptionList);
+      int _size = array.size();
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
       for (final Integer i : _doubleDotLessThan) {
         {
-          ArrayList<Subscription> _subscriptionList_1 = this.component.getSubscriptionList();
-          Subscription sub = _subscriptionList_1.get((i).intValue());
+          Subscription sub = array.get((i).intValue());
           Data data = sub.getData();
           Object _value = data.getValue();
           EncapsulatedValue ecData = ((EncapsulatedValue) _value);

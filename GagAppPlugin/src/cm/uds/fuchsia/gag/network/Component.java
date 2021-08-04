@@ -65,8 +65,8 @@ public class Component {
 	public void receiveTask(String senderName, Task t) {
 		// GAGAspect gag = new GAGAspect(g);
 		Task myTask = new Task();
-		myTask.setInputs(t.getInputs());
-		myTask.setOutputs(t.getOutputs());
+		myTask.setInputs(cloneDatas(t.getInputs()));
+		myTask.setOutputs(cloneDatas(t.getOutputs()));
 		// find associate service
 		Service serv = t.getService();
 		Service myService = null;
@@ -193,9 +193,12 @@ public class Component {
 
 		// update the gag
 
-		// get the data
+		// get the value
 		Data dat = mySub.getData();
-		dat.setValue(data.getValue());
+		EncapsulatedValue ecValData = (EncapsulatedValue)data.getValue();
+		EncapsulatedValue ecValDat = (EncapsulatedValue)dat.getValue();
+		ecValDat.setValue(ecValData.getValue());
+		
 
 		// draw the graph
 		ihm.disposeTheGraph();
@@ -203,6 +206,15 @@ public class Component {
 		// update the UI
 		ihm.updateUI();
 
+	}
+	
+	private static ArrayList<Data> cloneDatas(ArrayList<Data> datas){
+		ArrayList<Data> nDatas= new ArrayList<Data>();
+		for(int i=0; i<datas.size();i++){
+			Data d= datas.get(i).clone(); // false to increment the name generator
+			nDatas.add(d);
+		}
+		return nDatas;
 	}
 
 }

@@ -1,6 +1,7 @@
 package cm.uds.fuchsia.gag.model.configuration;
 
 import cm.uds.fuchsia.gag.model.specification.Parameter;
+import cm.uds.fuchsia.gag.util.EncapsulatedValue;
 import cm.uds.fuchsia.gag.util.NameGenerator;
 
 public class Data {
@@ -11,6 +12,9 @@ public class Data {
 
 	public Data() {
 		name=NameGenerator.newName();
+	}
+	public Data(Boolean setCounter) {
+		if(setCounter)name=NameGenerator.newName();
 	}
 	public Object getValue() {
 		return value;
@@ -30,6 +34,18 @@ public class Data {
 
 	public String getName() {
 		return name;
+	}
+	public Data clone(){
+		Data d= new Data(false);
+		d.name=name;
+		d.parameter=parameter;
+		d.value = value;
+		if(value instanceof EncapsulatedValue){
+			EncapsulatedValue ecVal = ((EncapsulatedValue) value).clone();
+			ecVal.setContainerRef(d);
+			d.value= ecVal;
+		}
+		return d;
 	}
 
 /*

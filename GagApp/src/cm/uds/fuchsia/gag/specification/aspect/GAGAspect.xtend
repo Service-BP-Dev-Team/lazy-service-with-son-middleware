@@ -17,6 +17,7 @@ import cm.uds.fuchsia.gag.model.specification.Guard
 import cm.uds.fuchsia.gag.configuration.aspect.PendingLocalFunctionComputationAspect
 import cm.uds.fuchsia.gag.configuration.aspect.ConfigurationAspect
 import cm.uds.fuchsia.gag.network.Component
+import cm.uds.fuchsia.gag.network.Subscription
 
 class GAGAspect extends GAG{
 	private Component component;
@@ -334,7 +335,7 @@ class GAGAspect extends GAG{
 		var objectRef = null as cm.uds.fuchsia.gag.model.configuration.Data;
 		var serviceName = ref.get(0).toString.trim;
 		var serviceParameter = ref.get(1).toString.trim;
-		// Console.debug(serviceName+"."+serviceParameter);
+		 Console.debug(serviceName+"."+serviceParameter);
 		for (i : 0 ..< tasks.size) {
 			var element = tasks.get(i);
 			if (element.service.name.equals(serviceName)) {
@@ -342,13 +343,13 @@ class GAGAspect extends GAG{
 				for (j : 0 ..< element.inputs.size) {
 					if (element.inputs.get(j).parameter.name.equals(serviceParameter)) {
 						objectRef = element.inputs.get(j);
-					// Console.debug('i found');
+					 Console.debug('i found');
 					}
 				}
 				for (j : 0 ..< element.outputs.size) {
 					if (element.outputs.get(j).parameter.name.equals(serviceParameter)) {
 						objectRef = element.outputs.get(j);
-					// Console.debug('i found');
+					 Console.debug('i found');
 					}
 				}
 			}
@@ -421,8 +422,10 @@ class GAGAspect extends GAG{
 	// method to notify component across the network
 	def void notifyComponents(){
 		if(component!=null){
-			for(i:0 ..<component.subscriptionList.size){
-				var sub=component.subscriptionList.get(i);
+			var array = new ArrayList<Subscription>;
+			array.addAll(component.subscriptionList);
+			for(i:0 ..<array.size){
+				var sub=array.get(i);
 				var data = sub.data;
 				var ecData = data.value as EncapsulatedValue;
 				if(!ecData.^null){

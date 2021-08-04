@@ -230,7 +230,7 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
         double _minus_1 = (_centerX - _multiply);
         double _centerY = rec.getCenterY();
         double _plus_1 = (_centerY + 30);
-        int _length = data.getParameter().getName().length();
+        int _length = data.getName().length();
         int _multiply_1 = (_length * 20);
         final Object v = this.graph.insertVertex(this.parent, null, data, _minus_1, _plus_1, _multiply_1, 15, GAGGraphAspect.styleServiceInput);
         this.mapDataGraph.put(data, v);
@@ -250,7 +250,7 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
         double _plus = (_centerX + (((i).intValue() + 1) * 25));
         double _centerY = rec.getCenterY();
         double _plus_1 = (_centerY + 30);
-        int _length = data.getParameter().getName().length();
+        int _length = data.getName().length();
         int _multiply = (_length * 20);
         final Object v = this.graph.insertVertex(this.parent, null, data, _plus, _plus_1, _multiply, 15, GAGGraphAspect.styleServiceOutput);
         this.mapDataGraph.put(data, v);
