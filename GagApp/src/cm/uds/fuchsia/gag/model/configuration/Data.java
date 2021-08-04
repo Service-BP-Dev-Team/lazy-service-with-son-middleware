@@ -37,6 +37,13 @@ public class Data {
     	}
     	return name;
     }
+    
+    public String getFullDisplayName(){
+    	if(parameter.getService()!=null){
+    		return parameter.getService().getName()+"."+this.getDisplayName();
+    	}
+    	return getDisplayName();
+    }
 	public String getName() {
 		return name;
 	}

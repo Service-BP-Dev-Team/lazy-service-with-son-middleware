@@ -1,13 +1,28 @@
 package cm.uds.fuchsia.gag.model.specification;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 public class Parameter {
 
 	private String name;
 	private String shortName;
+	private Service Service; // may be null if the parsing from xml fail
 
 	
+	@XmlTransient
+	public Service getService() {
+		return Service;
+	}
+	
+	 public void afterUnmarshal(Unmarshaller u, Object parent) {
+		    this.setService((Service)parent);
+		  }
+
+	public void setService(Service service) {
+		Service = service;
+	}
 
 	@XmlAttribute
 	public String getName() {

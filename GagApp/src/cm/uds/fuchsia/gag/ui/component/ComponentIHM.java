@@ -229,7 +229,7 @@ public class ComponentIHM {
 				Data in = el.getInputs().get(k);
 				// panes[cpt][0].add( new
 				// JLabel(el.getService().getName()+"."+in.getParameter().getName()));
-				panes[cpt][0].add(new JLabel(in.getName()));
+				panes[cpt][0].add(new JLabel(in.getFullDisplayName()));
 				panes[cpt][1].add(new JLabel("="));
 				EncapsulatedValue ecD = (EncapsulatedValue) in.getValue();
 				panes[cpt][2].add(new JLabel((ecD.isNull()) ? "?" : ecD.getValue().toString()));
@@ -239,7 +239,7 @@ public class ComponentIHM {
 				Data out = el.getOutputs().get(k);
 				// panes[cpt][0].add( new
 				// JLabel(el.getService().getName()+"."+out.getParameter().getName()));
-				panes[cpt][0].add(new JLabel(out.getName()));
+				panes[cpt][0].add(new JLabel(out.getFullDisplayName()));
 				panes[cpt][1].add(new JLabel("="));
 				EncapsulatedValue ecD = (EncapsulatedValue) out.getValue();
 				panes[cpt][2].add(new JLabel((ecD.isNull()) ? "?" : ecD.getValue().toString()));
@@ -296,7 +296,7 @@ public class ComponentIHM {
 		
 		for(int i=0;i<remoteSubscriptions.size();i++){
 			Subscription el = remoteSubscriptions.get(i);
-			panes[i][0].add(new JLabel(el.getData().getName()));
+			panes[i][0].add(new JLabel(el.getData().getFullDisplayName()));
 			panes[i][1].add(new JLabel("->"));
 			panes[i][2].add(new JLabel(el.getComponentName()));
 		}
@@ -360,9 +360,9 @@ public class ComponentIHM {
 						rightPart = (new PendingLocalFunctionComputationAspect((PendingLocalFunctionComputation) ref))
 								.prettyPrint();
 					} else {
-						rightPart = "_ id(" + ((Data) ref).getName() + ")";
+						rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
 					}
-					panes[count][0].add(new JLabel(dat.getName()));
+					panes[count][0].add(new JLabel(dat.getFullDisplayName()));
 					panes[count][1].add(new JLabel("="));
 					panes[count][2].add(new JLabel(rightPart));
 					count++;
@@ -382,9 +382,9 @@ public class ComponentIHM {
 							rightPart = (new PendingLocalFunctionComputationAspect(
 									(PendingLocalFunctionComputation) ref)).prettyPrint();
 						} else if (ref instanceof Data) {
-							rightPart = "_ id(" + ((Data) ref).getName() + ")";
+							rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
 						}
-						panes[count][0].add(new JLabel(dat.getName()));
+						panes[count][0].add(new JLabel(dat.getFullDisplayName()));
 						panes[count][1].add(new JLabel("="));
 						panes[count][2].add(new JLabel(rightPart));
 						count++;

@@ -57,14 +57,14 @@ class TaskAspect extends Task{
 	def String prettyPrint(){
 		var result="(";
 		for(i:0 ..<outputs.size){
-			result+=outputs.get(i).name;
+			result+=outputs.get(i).fullDisplayName;
 			if(i!=outputs.size-1){
 				result+=",";
 			}
 		}
 		result+=") = "+service.name+"(";
 		for(i:0 ..<inputs.size){
-			result+=inputs.get(i).name;
+			result+=inputs.get(i).fullDisplayName;
 			if(i!=inputs.size-1){
 				result+=",";
 			}

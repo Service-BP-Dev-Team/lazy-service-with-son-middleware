@@ -120,8 +120,8 @@ public class TaskAspect extends Task {
         String _result = result;
         ArrayList<Data> _outputs_1 = this.getOutputs();
         Data _get = _outputs_1.get((i).intValue());
-        String _name = _get.getName();
-        result = (_result + _name);
+        String _fullDisplayName = _get.getFullDisplayName();
+        result = (_result + _fullDisplayName);
         ArrayList<Data> _outputs_2 = this.getOutputs();
         int _size_1 = _outputs_2.size();
         int _minus = (_size_1 - 1);
@@ -146,8 +146,8 @@ public class TaskAspect extends Task {
         String _result_1 = result;
         ArrayList<Data> _inputs_1 = this.getInputs();
         Data _get = _inputs_1.get((i_1).intValue());
-        String _name_1 = _get.getName();
-        result = (_result_1 + _name_1);
+        String _fullDisplayName = _get.getFullDisplayName();
+        result = (_result_1 + _fullDisplayName);
         ArrayList<Data> _inputs_2 = this.getInputs();
         int _size_2 = _inputs_2.size();
         int _minus = (_size_2 - 1);

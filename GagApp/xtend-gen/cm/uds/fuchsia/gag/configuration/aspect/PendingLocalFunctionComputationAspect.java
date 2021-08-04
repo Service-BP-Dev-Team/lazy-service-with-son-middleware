@@ -112,8 +112,8 @@ public class PendingLocalFunctionComputationAspect extends PendingLocalFunctionC
         String _result = result;
         ArrayList<Data> _actualParameters_1 = this.getActualParameters();
         Data _get = _actualParameters_1.get((i).intValue());
-        String _name_1 = _get.getName();
-        result = (_result + _name_1);
+        String _fullDisplayName = _get.getFullDisplayName();
+        result = (_result + _fullDisplayName);
         ArrayList<Data> _actualParameters_2 = this.getActualParameters();
         int _size_1 = _actualParameters_2.size();
         int _minus = (_size_1 - 1);
