@@ -91,7 +91,13 @@ public class EncapsulatedValue {
 		return null;
 	}
 	
-	
+	public EncapsulatedValue clone (){
+		EncapsulatedValue enc = new EncapsulatedValue();
+		enc.containerRef=containerRef;
+		enc.next=next;
+		enc.value=value;
+		return enc;
+	}
 	
 	
 	

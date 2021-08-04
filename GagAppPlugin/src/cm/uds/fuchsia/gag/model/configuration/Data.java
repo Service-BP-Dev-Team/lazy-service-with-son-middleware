@@ -31,7 +31,12 @@ public class Data {
 	public void setParameter(Parameter parameter) {
 		this.parameter = parameter;
 	}
-
+    public String getDisplayName(){
+    	if(this.parameter.getShortName()!=null){
+    		return parameter.getShortName();
+    	}
+    	return name;
+    }
 	public String getName() {
 		return name;
 	}
