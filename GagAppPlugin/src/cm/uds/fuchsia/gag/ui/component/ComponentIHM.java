@@ -58,6 +58,7 @@ public class ComponentIHM {
 	private JPanel panelConfigurationEquations;
 	private ArrayList<Subscription> subscriptionsList;
 	private JPanel panelSubscriptionsContent;
+	private JButton btnStop;
 
 	/**
 	 * Launch the application.
@@ -131,7 +132,7 @@ public class ComponentIHM {
 		JButton btnResume = new JButton("Resume");
 		panelBtn.add(btnResume);
 
-		JButton btnStop = new JButton("Stop");
+		btnStop = new JButton("Stop");
 		panelBtn.add(btnStop);
 
 		JPanel panelMetaData = new JPanel();
@@ -213,6 +214,19 @@ public class ComponentIHM {
 		
 		this.graphLayout.dispose(panelConfigurationGraph);
 	}
+	
+	public void stopExecution(){
+		Configuration configuration = (Configuration) this.graphLayout.getConfiguration();
+		if(configuration!=null){
+			//stopping pending local computations
+			configuration.setPendingLocalComputations(new ArrayList<PendingLocalFunctionComputation>());
+			//removing subscriptions
+			this.graphLayout.getComponent().setSubscriptionList(new ArrayList<Subscription>());
+			
+			// update the ui
+			this.updateUI();
+		}
+	}
 
 	public void updateUI() {
 
@@ -278,6 +292,15 @@ public class ComponentIHM {
 				dialog.showUI();
 			}
 
+		});
+		
+		this.btnStop.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				stopExecution();
+			}
 		});
 	}
 

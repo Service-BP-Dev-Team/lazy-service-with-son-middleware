@@ -58,6 +58,7 @@ public class ComponentIHM {
 	private JPanel panelConfigurationEquations;
 	private ArrayList<Subscription> subscriptionsList;
 	private JPanel panelSubscriptionsContent;
+	private JButton btnStop;
 
 	/**
 	 * Launch the application.
@@ -87,7 +88,7 @@ public class ComponentIHM {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 703, 528);
+		frame.setBounds(100, 100, 900, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		try {
@@ -131,7 +132,7 @@ public class ComponentIHM {
 		JButton btnResume = new JButton("Resume");
 		panelBtn.add(btnResume);
 
-		JButton btnStop = new JButton("Stop");
+		btnStop = new JButton("Stop");
 		panelBtn.add(btnStop);
 
 		JPanel panelMetaData = new JPanel();
@@ -140,7 +141,7 @@ public class ComponentIHM {
 		panelMetaData.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JPanel panelConfValue = new JPanel();
-		panelMetaData.add(panelConfValue);
+		//panelMetaData.add(panelConfValue); /* old UI */
 		panelConfValue.setLayout(new BorderLayout(0, 0));
 
 		JPanel panelConValueTitle = new JPanel();
@@ -190,6 +191,16 @@ public class ComponentIHM {
 
 		panelConfigurationGraph = new JPanel();
 		panelConfiguration.add(panelConfigurationGraph, BorderLayout.CENTER);
+		
+		// new place for value
+		JPanel panelForConfvalue = new JPanel();
+		panelForConfvalue.setPreferredSize(new Dimension(300,400));
+		panelConfiguration.add(panelForConfvalue,BorderLayout.EAST);
+		panelForConfvalue.setLayout(new BorderLayout());
+
+		panelMetaData.remove(panelForConfvalue);
+		panelForConfvalue.add(panelConfValue,BorderLayout.CENTER);
+		
 	}
 
 	public void disposeTheGraph(GAGAspect gag) {
@@ -202,6 +213,19 @@ public class ComponentIHM {
 	public void disposeTheGraph() {
 		
 		this.graphLayout.dispose(panelConfigurationGraph);
+	}
+	
+	public void stopExecution(){
+		Configuration configuration = (Configuration) this.graphLayout.getConfiguration();
+		if(configuration!=null){
+			//stopping pending local computations
+			configuration.setPendingLocalComputations(new ArrayList<PendingLocalFunctionComputation>());
+			//removing subscriptions
+			this.graphLayout.getComponent().setSubscriptionList(new ArrayList<Subscription>());
+			
+			// update the ui
+			this.updateUI();
+		}
 	}
 
 	public void updateUI() {
@@ -268,6 +292,15 @@ public class ComponentIHM {
 				dialog.showUI();
 			}
 
+		});
+		
+		this.btnStop.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				stopExecution();
+			}
 		});
 	}
 
