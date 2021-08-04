@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import cm.uds.fuchsia.gag.model.configuration.Task;
 import cm.uds.fuchsia.gag.model.specification.DecompositionRule;
-import cm.uds.fuchsia.gag.ui.component.GAGGraphAspect;
+import cm.uds.fuchsia.gag.specification.aspect.GAGGraphAspect;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

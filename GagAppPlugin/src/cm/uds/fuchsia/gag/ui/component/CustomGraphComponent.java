@@ -23,7 +23,7 @@ import com.mxgraph.view.mxGraph;
 import cm.uds.fuchsia.gag.model.configuration.Data;
 import cm.uds.fuchsia.gag.model.configuration.Task;
 import cm.uds.fuchsia.gag.model.specification.GAG;
-import cm.uds.fuchsia.gag.ui.component.GAGGraphAspect;
+import cm.uds.fuchsia.gag.specification.aspect.GAGGraphAspect;
 
 
 public class CustomGraphComponent extends mxGraphComponent {

@@ -1,16 +1,24 @@
-package cm.uds.fuchsia.gag.ui.component;
+package cm.uds.fuchsia.gag.specification.aspect;
 
 import cm.uds.fuchsia.gag.model.configuration.Configuration;
 import cm.uds.fuchsia.gag.model.configuration.Data;
 import cm.uds.fuchsia.gag.model.configuration.Task;
 import cm.uds.fuchsia.gag.model.specification.GAG;
+import cm.uds.fuchsia.gag.model.specification.Parameter;
 import cm.uds.fuchsia.gag.model.specification.RuntimeData;
+import cm.uds.fuchsia.gag.model.specification.Service;
 import cm.uds.fuchsia.gag.specification.aspect.GAGAspect;
 import cm.uds.fuchsia.gag.specification.aspect.OutputInterface;
+import cm.uds.fuchsia.gag.ui.component.ChooseRuleDialog;
+import cm.uds.fuchsia.gag.ui.component.ComponentIHM;
+import cm.uds.fuchsia.gag.ui.component.CustomGraph;
+import cm.uds.fuchsia.gag.ui.component.CustomGraphComponent;
 import cm.uds.fuchsia.gag.util.Console;
 import com.google.common.base.Objects;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.layout.mxFastOrganicLayout;
+import com.mxgraph.model.mxIGraphModel;
+import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxPoint;
@@ -141,8 +149,10 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
     CustomGraph _customGraph = new CustomGraph();
     this.graph = _customGraph;
     this.graph.setGAG(this);
-    this.parent = this.graph.getDefaultParent();
-    this.graph.getModel().beginUpdate();
+    Object _defaultParent = this.graph.getDefaultParent();
+    this.parent = _defaultParent;
+    mxIGraphModel _model = this.graph.getModel();
+    _model.beginUpdate();
     mxHierarchicalLayout _mxHierarchicalLayout = new mxHierarchicalLayout(this.graph);
     this.layoutForParent = _mxHierarchicalLayout;
     mxFastOrganicLayout layout = new mxFastOrganicLayout(this.graph);
@@ -168,18 +178,21 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
       this.layoutForParent.setParallelEdgeSpacing(50);
       this.layoutForParent.setIntraCellSpacing(150);
       this.layoutForParent.execute(this.parent);
-      this.graph.getModel().endUpdate();
+      mxIGraphModel _model_1 = this.graph.getModel();
+      _model_1.endUpdate();
     }
-    RuntimeData _configuration = this.getConfiguration();
-    boolean _notEquals = (!Objects.equal(_configuration, null));
-    if (_notEquals) {
+    RuntimeData _configuration_2 = this.getConfiguration();
+    boolean _notEquals_1 = (!Objects.equal(_configuration_2, null));
+    if (_notEquals_1) {
       final ArrayList<Task> servicesOpen = this.getAllTasks(null);
       int _size = servicesOpen.size();
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
       for (final Integer i : _doubleDotLessThan) {
         {
-          this.drawInputs(servicesOpen.get((i).intValue()));
-          this.drawOutputs(servicesOpen.get((i).intValue()));
+          Task _get = servicesOpen.get((i).intValue());
+          this.drawInputs(_get);
+          Task _get_1 = servicesOpen.get((i).intValue());
+          this.drawOutputs(_get_1);
         }
       }
     }
@@ -188,16 +201,20 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
     this.graphComponent.setBackground(Color.WHITE);
     this.graphComponent.zoomAndCenter();
     this.graphComponent.zoom(1.2);
-    Dimension size = this.graphComponent.getViewport().getViewSize();
-    Rectangle bounds = this.graphComponent.getViewport().getViewRect();
+    JViewport _viewport = this.graphComponent.getViewport();
+    Dimension size = _viewport.getViewSize();
+    JViewport _viewport_1 = this.graphComponent.getViewport();
+    Rectangle bounds = _viewport_1.getViewRect();
     int x = ((size.width - bounds.width) / 4);
     int y = (0 / 2);
-    JViewport _viewport = this.graphComponent.getViewport();
+    JViewport _viewport_2 = this.graphComponent.getViewport();
     Point _point = new Point(50, y);
-    _viewport.setViewPosition(_point);
-    final int graphwidth = this.graphComponent.getPreferredSize().width;
+    _viewport_2.setViewPosition(_point);
+    Dimension _preferredSize = this.graphComponent.getPreferredSize();
+    final int graphwidth = _preferredSize.width;
     mxGraphView _view = this.graph.getView();
-    double _width = this.graph.getGraphBounds().getWidth();
+    mxRectangle _graphBounds = this.graph.getGraphBounds();
+    double _width = _graphBounds.getWidth();
     double _divide = (_width / 2);
     double _minus = ((graphwidth / 2) - _divide);
     double _plus = (_minus + 40);
@@ -208,7 +225,8 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
     this.graphComponent.refresh();
     this.graphComponent.setLayoutStructure(this);
     this.graphComponent.setGAG(this);
-    this.graphComponent.getGraphControl().addMouseListener(this);
+    mxGraphComponent.mxGraphControl _graphControl = this.graphComponent.getGraphControl();
+    _graphControl.addMouseListener(this);
     this.panel.add(this.graphComponent);
     this.panel.updateUI();
     this.panel.validate();
@@ -216,21 +234,26 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   }
   
   public void drawInputs(final Task task) {
-    final mxRectangle rec = this.graph.getCellBounds(this.mapDataGraph.get(task));
-    int _size = task.getInputs().size();
+    Object _get = this.mapDataGraph.get(task);
+    final mxRectangle rec = this.graph.getCellBounds(_get);
+    ArrayList<Data> _inputs = task.getInputs();
+    int _size = _inputs.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
     for (final Integer i : _doubleDotLessThan) {
       {
-        Data data = task.getInputs().get((i).intValue());
+        ArrayList<Data> _inputs_1 = task.getInputs();
+        Data data = _inputs_1.get((i).intValue());
         double _centerX = rec.getCenterX();
-        int _size_1 = task.getInputs().size();
+        ArrayList<Data> _inputs_2 = task.getInputs();
+        int _size_1 = _inputs_2.size();
         int _minus = (_size_1 - (i).intValue());
         int _plus = (_minus + 1);
         int _multiply = (_plus * 25);
         double _minus_1 = (_centerX - _multiply);
         double _centerY = rec.getCenterY();
         double _plus_1 = (_centerY + 30);
-        int _length = data.getName().length();
+        String _name = data.getName();
+        int _length = _name.length();
         int _multiply_1 = (_length * 20);
         final Object v = this.graph.insertVertex(this.parent, null, data, _minus_1, _plus_1, _multiply_1, 15, GAGGraphAspect.styleServiceInput);
         this.mapDataGraph.put(data, v);
@@ -240,17 +263,21 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   }
   
   public void drawOutputs(final Task task) {
-    final mxRectangle rec = this.graph.getCellBounds(this.mapDataGraph.get(task));
-    int _size = task.getOutputs().size();
+    Object _get = this.mapDataGraph.get(task);
+    final mxRectangle rec = this.graph.getCellBounds(_get);
+    ArrayList<Data> _outputs = task.getOutputs();
+    int _size = _outputs.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
     for (final Integer i : _doubleDotLessThan) {
       {
-        Data data = task.getOutputs().get((i).intValue());
+        ArrayList<Data> _outputs_1 = task.getOutputs();
+        Data data = _outputs_1.get((i).intValue());
         double _centerX = rec.getCenterX();
         double _plus = (_centerX + (((i).intValue() + 1) * 25));
         double _centerY = rec.getCenterY();
         double _plus_1 = (_centerY + 30);
-        int _length = data.getName().length();
+        String _name = data.getName();
+        int _length = _name.length();
         int _multiply = (_length * 20);
         final Object v = this.graph.insertVertex(this.parent, null, data, _plus, _plus_1, _multiply, 15, GAGGraphAspect.styleServiceOutput);
         this.mapDataGraph.put(data, v);
@@ -267,12 +294,15 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
     } else {
       myStyleService = GAGGraphAspect.styleService;
     }
-    Boolean _isRemote = task.getService().isRemote();
+    Service _service = task.getService();
+    Boolean _isRemote = _service.isRemote();
     if ((_isRemote).booleanValue()) {
       myStyleService = GAGGraphAspect.styleServiceRemote;
       Console.debug("the service is remote");
     }
-    int _length = task.getService().getName().length();
+    Service _service_1 = task.getService();
+    String _name = _service_1.getName();
+    int _length = _name.length();
     int _multiply = (_length * 20);
     int _plus = (_multiply + 20);
     Object v = this.graph.insertVertex(this.parent, null, task, 400, 10, _plus, 50, myStyleService);
@@ -280,13 +310,16 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
     this.mapGraphData.put(v, task);
     boolean _notEquals = (!Objects.equal(parent, null));
     if (_notEquals) {
-      this.graph.insertEdge(this.parent, null, "", this.mapDataGraph.get(parent), v, GAGGraphAspect.styleArrowSun);
+      Object _get = this.mapDataGraph.get(parent);
+      this.graph.insertEdge(this.parent, null, "", _get, v, GAGGraphAspect.styleArrowSun);
     }
-    int _size = task.getSubTasks().size();
+    ArrayList<Task> _subTasks = task.getSubTasks();
+    int _size = _subTasks.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
     for (final Integer i : _doubleDotLessThan) {
       {
-        Task element = task.getSubTasks().get((i).intValue());
+        ArrayList<Task> _subTasks_1 = task.getSubTasks();
+        Task element = _subTasks_1.get((i).intValue());
         this.draw(element, task);
       }
     }
@@ -296,12 +329,15 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   }
   
   public void drawInput(final Data data, final Task t) {
-    final mxRectangle rec = this.graph.getCellBounds(this.mapDataGraph.get(t));
+    Object _get = this.mapDataGraph.get(t);
+    final mxRectangle rec = this.graph.getCellBounds(_get);
     double _centerX = rec.getCenterX();
     double _minus = (_centerX - 10);
     double _centerY = rec.getCenterY();
     double _plus = (_centerY + 20);
-    int _length = data.getParameter().getName().length();
+    Parameter _parameter = data.getParameter();
+    String _name = _parameter.getName();
+    int _length = _name.length();
     int _multiply = (_length * 20);
     int _plus_1 = (_multiply + 20);
     final Object v = this.graph.insertVertex(this.parent, null, data, _minus, _plus, _plus_1, 20, (((GAGGraphAspect.styleIN + mxConstants.STYLE_STROKECOLOR) + "=") + "#ffffff;"));
@@ -325,7 +361,8 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   }
   
   public void update(final GAG g) {
-    this.setConfiguration(g.getConfiguration());
+    RuntimeData _configuration = g.getConfiguration();
+    this.setConfiguration(_configuration);
     this.dispose();
     this.windowContainer.updateUI();
   }
@@ -343,21 +380,25 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   }
   
   public void mouseReleased(final MouseEvent e) {
-    Object cell = this.graphComponent.getCellAt(e.getX(), e.getY());
-    if ((cell != null)) {
+    int _x = e.getX();
+    int _y = e.getY();
+    Object cell = this.graphComponent.getCellAt(_x, _y);
+    boolean _tripleNotEquals = (cell != null);
+    if (_tripleNotEquals) {
       Object data = this.mapGraphData.get(cell);
       boolean _notEquals = (!Objects.equal(data, null));
       if (_notEquals) {
         if ((data instanceof Task)) {
           Console.debug("clicking on task");
-          int _x = e.getX();
-          String _plus = ("(X:" + Integer.valueOf(_x));
+          int _x_1 = e.getX();
+          String _plus = ("(X:" + Integer.valueOf(_x_1));
           String _plus_1 = (_plus + ", Y:");
-          int _y = e.getY();
-          String _plus_2 = (_plus_1 + Integer.valueOf(_y));
+          int _y_1 = e.getY();
+          String _plus_2 = (_plus_1 + Integer.valueOf(_y_1));
           String _plus_3 = (_plus_2 + ")");
           Console.debug(_plus_3);
-          if ((this.dialog != null)) {
+          boolean _tripleNotEquals_1 = (this.dialog != null);
+          if (_tripleNotEquals_1) {
             this.dialog.dispose();
           }
           ChooseRuleDialog _chooseRuleDialog = new ChooseRuleDialog();
@@ -369,17 +410,20 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
           this.dialog.setRulesForTask(((Task) data));
           this.dialog.setVisible(true);
         } else {
-          if ((this.dialog != null)) {
+          boolean _tripleNotEquals_2 = (this.dialog != null);
+          if (_tripleNotEquals_2) {
             this.dialog.dispose();
           }
         }
       } else {
-        if ((this.dialog != null)) {
+        boolean _tripleNotEquals_3 = (this.dialog != null);
+        if (_tripleNotEquals_3) {
           this.dialog.dispose();
         }
       }
     } else {
-      if ((this.dialog != null)) {
+      boolean _tripleNotEquals_4 = (this.dialog != null);
+      if (_tripleNotEquals_4) {
         this.dialog.dispose();
       }
     }

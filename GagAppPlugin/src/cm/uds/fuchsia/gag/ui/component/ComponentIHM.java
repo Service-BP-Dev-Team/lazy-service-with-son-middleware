@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
@@ -18,16 +19,18 @@ import javax.swing.UnsupportedLookAndFeelException;
 import cm.uds.fuchsia.gag.configuration.aspect.PendingLocalFunctionComputationAspect;
 import cm.uds.fuchsia.gag.configuration.aspect.TaskAspect;
 import cm.uds.fuchsia.gag.specification.aspect.GAGAspect;
-import cm.uds.fuchsia.gag.ui.component.GAGGraphAspect;
+import cm.uds.fuchsia.gag.specification.aspect.GAGGraphAspect;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.FontUIResource;
 

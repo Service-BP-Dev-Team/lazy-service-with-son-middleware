@@ -19,8 +19,8 @@ import cm.uds.fuchsia.gag.model.configuration.Configuration;
 import cm.uds.fuchsia.gag.model.configuration.Task;
 import cm.uds.fuchsia.gag.model.specification.Parameter;
 import cm.uds.fuchsia.gag.model.specification.Service;
+import cm.uds.fuchsia.gag.specification.aspect.GAGGraphAspect;
 import cm.uds.fuchsia.gag.util.UIUtil;
-import cm.uds.fuchsia.gag.ui.component.GAGGraphAspect;
 
 import java.awt.Color;
 
