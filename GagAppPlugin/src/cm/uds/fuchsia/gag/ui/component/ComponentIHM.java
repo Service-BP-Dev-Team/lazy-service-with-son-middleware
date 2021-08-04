@@ -229,7 +229,7 @@ public class ComponentIHM {
 				Data in = el.getInputs().get(k);
 				// panes[cpt][0].add( new
 				// JLabel(el.getService().getName()+"."+in.getParameter().getName()));
-				panes[cpt][0].add(new JLabel(in.getName()));
+				panes[cpt][0].add(new JLabel(el.getService().getName()+"."+in.getDisplayName()));
 				panes[cpt][1].add(new JLabel("="));
 				EncapsulatedValue ecD = (EncapsulatedValue) in.getValue();
 				panes[cpt][2].add(new JLabel((ecD.isNull()) ? "?" : ecD.getValue().toString()));
@@ -239,7 +239,7 @@ public class ComponentIHM {
 				Data out = el.getOutputs().get(k);
 				// panes[cpt][0].add( new
 				// JLabel(el.getService().getName()+"."+out.getParameter().getName()));
-				panes[cpt][0].add(new JLabel(out.getName()));
+				panes[cpt][0].add(new JLabel(el.getService().getName()+"."+out.getDisplayName()));
 				panes[cpt][1].add(new JLabel("="));
 				EncapsulatedValue ecD = (EncapsulatedValue) out.getValue();
 				panes[cpt][2].add(new JLabel((ecD.isNull()) ? "?" : ecD.getValue().toString()));

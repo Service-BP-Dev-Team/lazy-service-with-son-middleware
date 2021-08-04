@@ -133,7 +133,7 @@ public class CustomGraphComponent extends mxGraphComponent {
 			if(value instanceof Data){
 				
 				Data d = (Data) value;
-				return d.getName();//return data label or value
+				return d.getDisplayName();//return data label or value
 			}
 		}
 

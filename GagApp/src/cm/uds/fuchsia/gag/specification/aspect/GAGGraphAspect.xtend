@@ -199,22 +199,30 @@ class GAGGraphAspect extends GAGAspect implements OutputInterface,MouseListener{
 	def drawInputs(Task task) {
 		
 		val rec = graph.getCellBounds(mapDataGraph.get(task));
+		var space=20;
 		for(i:0 ..<task.inputs.size){
 		var data=task.inputs.get(i);
-		val v=graph.insertVertex(this.parent, null, data, rec.centerX-(task.inputs.size-i+1)*25, rec.centerY+30, data.name.length()*20, 15,styleServiceInput);
+		var actualSpace=11*(data.displayName.length);
+		space+=10;
+		val v=graph.insertVertex(this.parent, null, data, rec.centerX-space, rec.centerY+30,actualSpace, 22,styleServiceInput);
 		mapDataGraph.put(data,v);
 		mapGraphData.put(v,data);
+		space+=actualSpace;
 		}
 	}
 	
 	def drawOutputs(Task task) {
 		
 		val rec = graph.getCellBounds(mapDataGraph.get(task));
+		var space=20;
 		for(i:0 ..<task.outputs.size){
 		var data=task.outputs.get(i);
-		val v=graph.insertVertex(this.parent, null, data, rec.centerX+(i+1)*25, rec.centerY+30, data.name.length()*20,15,styleServiceOutput);
+		var actualSpace=11*(data.displayName.length);
+		space+=10;
+		val v=graph.insertVertex(this.parent, null, data, rec.centerX+space, rec.centerY+30, actualSpace,22,styleServiceOutput);
 		mapDataGraph.put(data,v);
 		mapGraphData.put(v,data);
+		space+=actualSpace;
 		}
 	}
 	

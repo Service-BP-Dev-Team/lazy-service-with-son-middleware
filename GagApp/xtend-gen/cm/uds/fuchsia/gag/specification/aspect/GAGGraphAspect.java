@@ -236,6 +236,7 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   public void drawInputs(final Task task) {
     Object _get = this.mapDataGraph.get(task);
     final mxRectangle rec = this.graph.getCellBounds(_get);
+    int space = 20;
     ArrayList<Data> _inputs = task.getInputs();
     int _size = _inputs.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
@@ -243,21 +244,20 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
       {
         ArrayList<Data> _inputs_1 = task.getInputs();
         Data data = _inputs_1.get((i).intValue());
+        String _displayName = data.getDisplayName();
+        int _length = _displayName.length();
+        int actualSpace = (11 * _length);
+        int _space = space;
+        space = (_space + 10);
         double _centerX = rec.getCenterX();
-        ArrayList<Data> _inputs_2 = task.getInputs();
-        int _size_1 = _inputs_2.size();
-        int _minus = (_size_1 - (i).intValue());
-        int _plus = (_minus + 1);
-        int _multiply = (_plus * 25);
-        double _minus_1 = (_centerX - _multiply);
+        double _minus = (_centerX - space);
         double _centerY = rec.getCenterY();
-        double _plus_1 = (_centerY + 30);
-        String _name = data.getName();
-        int _length = _name.length();
-        int _multiply_1 = (_length * 20);
-        final Object v = this.graph.insertVertex(this.parent, null, data, _minus_1, _plus_1, _multiply_1, 15, GAGGraphAspect.styleServiceInput);
+        double _plus = (_centerY + 30);
+        final Object v = this.graph.insertVertex(this.parent, null, data, _minus, _plus, actualSpace, 22, GAGGraphAspect.styleServiceInput);
         this.mapDataGraph.put(data, v);
         this.mapGraphData.put(v, data);
+        int _space_1 = space;
+        space = (_space_1 + actualSpace);
       }
     }
   }
@@ -265,6 +265,7 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   public void drawOutputs(final Task task) {
     Object _get = this.mapDataGraph.get(task);
     final mxRectangle rec = this.graph.getCellBounds(_get);
+    int space = 20;
     ArrayList<Data> _outputs = task.getOutputs();
     int _size = _outputs.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
@@ -272,16 +273,20 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
       {
         ArrayList<Data> _outputs_1 = task.getOutputs();
         Data data = _outputs_1.get((i).intValue());
+        String _displayName = data.getDisplayName();
+        int _length = _displayName.length();
+        int actualSpace = (11 * _length);
+        int _space = space;
+        space = (_space + 10);
         double _centerX = rec.getCenterX();
-        double _plus = (_centerX + (((i).intValue() + 1) * 25));
+        double _plus = (_centerX + space);
         double _centerY = rec.getCenterY();
         double _plus_1 = (_centerY + 30);
-        String _name = data.getName();
-        int _length = _name.length();
-        int _multiply = (_length * 20);
-        final Object v = this.graph.insertVertex(this.parent, null, data, _plus, _plus_1, _multiply, 15, GAGGraphAspect.styleServiceOutput);
+        final Object v = this.graph.insertVertex(this.parent, null, data, _plus, _plus_1, actualSpace, 22, GAGGraphAspect.styleServiceOutput);
         this.mapDataGraph.put(data, v);
         this.mapGraphData.put(v, data);
+        int _space_1 = space;
+        space = (_space_1 + actualSpace);
       }
     }
   }
