@@ -199,12 +199,38 @@ public class Component {
 		EncapsulatedValue ecValDat = (EncapsulatedValue)dat.getValue();
 		ecValDat.setValue(ecValData.getValue());
 		
-
+		
+		
 		// draw the graph
 		ihm.disposeTheGraph();
 
 		// update the UI
 		ihm.updateUI();
+		
+		//re-execute function as some functions are now executable
+		Console.debug("I re-execute functions");
+		Thread t=new Thread(new Runnable(){
+			public void run(){
+				Console.debug("Thread started");
+				Configuration conf= (Configuration)ihm.getGraphLayout().getConfiguration() ;
+				Console.debug("the size"+conf.getPendingLocalComputations().size());
+						associateGAG.computeFunction( conf.getPendingLocalComputations());
+				//notify is necessary
+				ihm.getGraphLayout().notifyComponents();
+						
+				// update the UI
+				ihm.updateUI();
+				
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 
 	}
 	

@@ -11,9 +11,13 @@ public class Util {
 	}
 	
 	public static Object notMeet(Object request, Object offer){
+		//fileAdapt to serialize/deserialize and avoid cas problems link to the use of multiples classloader
 		Offer offr =(Offer)c.general.Util.fileAdapt(offer);
 		Request req = (Request)c.general.Util.fileAdapt(request);
-		return (offr.getPrice()>req.getMaxPrice());
+		if(offr!=null && req!=null){
+			return (offr.getPrice()>req.getMaxPrice());
+		}
+		return true;
 		
 	}
 	

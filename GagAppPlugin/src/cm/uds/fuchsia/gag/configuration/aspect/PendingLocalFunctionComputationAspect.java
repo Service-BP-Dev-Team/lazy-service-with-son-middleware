@@ -3,6 +3,7 @@ package cm.uds.fuchsia.gag.configuration.aspect;
 import cm.uds.fuchsia.gag.model.configuration.Data;
 import cm.uds.fuchsia.gag.model.configuration.PendingLocalFunctionComputation;
 import cm.uds.fuchsia.gag.model.specification.FunctionDeclaration;
+import cm.uds.fuchsia.gag.util.Console;
 import cm.uds.fuchsia.gag.util.EncapsulatedValue;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
@@ -30,6 +31,10 @@ public class PendingLocalFunctionComputationAspect extends PendingLocalFunctionC
   
   public boolean isExecutable() {
     boolean isexc = true;
+    FunctionDeclaration _functionDeclaration = this.getFunctionDeclaration();
+    String _name = _functionDeclaration.getName();
+    String _plus = (_name + ": am i executable ?");
+    Console.debug(_plus);
     ArrayList<Data> _actualParameters = this.getActualParameters();
     int _size = _actualParameters.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);

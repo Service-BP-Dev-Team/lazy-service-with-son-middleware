@@ -3,6 +3,7 @@ package cm.uds.fuchsia.gag.configuration.aspect
 import cm.uds.fuchsia.gag.model.configuration.PendingLocalFunctionComputation
 import cm.uds.fuchsia.gag.util.EncapsulatedValue
 import groovy.lang.*
+import cm.uds.fuchsia.gag.util.Console
 
 class PendingLocalFunctionComputationAspect extends PendingLocalFunctionComputation {
 	
@@ -20,6 +21,7 @@ class PendingLocalFunctionComputationAspect extends PendingLocalFunctionComputat
 	
 	def boolean isExecutable() {
 		var isexc =  true
+		Console.debug(functionDeclaration.name+": am i executable ?");
 		for(i:0 ..<this.actualParameters.size){
 			var data =this.actualParameters.get(i);
 			var ecData = data.value as EncapsulatedValue;

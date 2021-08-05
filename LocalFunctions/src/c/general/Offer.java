@@ -45,6 +45,9 @@ public class Offer implements Serializable{
 		return offer;
 	}
 	
+	public String toString(){
+		return "The offer";
+	}
 	
 	
 }

@@ -25,42 +25,53 @@ public class Util {
 	String path=Util.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	path=path.replaceAll("%20", " ");
 	path+="\\..\\myBin\\"+counter;
-	File file = new File(path);
-	FileInputStream fileIn;
-	try {
-			fileIn = new FileInputStream(file);
-			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-			 
-            obj = objectIn.readObject();
- 
-            System.out.println("The Object has been read from the file");
-            objectIn.close();
-		} catch ( IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        return obj;
+	return readFromFile(path);
     }
+	
     
 	public static void createInFile(Object obj,int counter){
 	
 	String path=Util.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	path=path.replaceAll("%20", " ");
 	path+="\\..\\myBin\\"+counter;
-	File file = new File(path);
-	  FileOutputStream fileOut;
-	try {
-		fileOut = new FileOutputStream(file);
-		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-	    objectOut.writeObject(obj);
-	    objectOut.close();
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	createInFile(obj, path);
       
 	}
 	
+	public static Object readFromFile(String path){
+		Object obj=null;
+		File file = new File(path);
+		FileInputStream fileIn;
+		try {
+				fileIn = new FileInputStream(file);
+				ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+				 
+	            obj = objectIn.readObject();
+	 
+	            System.out.println("The Object has been read from the file");
+	            objectIn.close();
+			} catch ( IOException | ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        return obj;
+	    }
+	
+	public static void createInFile(Object obj,String path){
+		
+		File file = new File(path);
+		  FileOutputStream fileOut;
+		try {
+			fileOut = new FileOutputStream(file);
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+		    objectOut.writeObject(obj);
+		    objectOut.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      
+		}
 	
 }

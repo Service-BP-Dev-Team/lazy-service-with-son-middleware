@@ -113,6 +113,7 @@ public class RequestForm {
 		panel.add(lblMaxPriceLabel);
 		
 		maxPriceTextField = new JTextField();
+		maxPriceTextField.setText("30000");
 		sl_panel.putConstraint(SpringLayout.NORTH, maxPriceTextField, -12, SpringLayout.NORTH, lblMaxPriceLabel);
 		sl_panel.putConstraint(SpringLayout.WEST, maxPriceTextField, 58, SpringLayout.EAST, lblMaxPriceLabel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, maxPriceTextField, 72, SpringLayout.NORTH, panel);
@@ -126,6 +127,7 @@ public class RequestForm {
 		panel.add(lblMaxDeliveryTime);
 		
 		deliveryTimeTextField = new JTextField();
+		deliveryTimeTextField.setText("5");
 		sl_panel.putConstraint(SpringLayout.NORTH, deliveryTimeTextField, 28, SpringLayout.SOUTH, maxPriceTextField);
 		sl_panel.putConstraint(SpringLayout.WEST, deliveryTimeTextField, 0, SpringLayout.WEST, maxPriceTextField);
 		sl_panel.putConstraint(SpringLayout.SOUTH, deliveryTimeTextField, 66, SpringLayout.SOUTH, maxPriceTextField);
@@ -139,6 +141,7 @@ public class RequestForm {
 		panel.add(lblQualityLabel);
 		
 		qualityTextField = new JTextField();
+		qualityTextField.setText("A");
 		sl_panel.putConstraint(SpringLayout.SOUTH, qualityTextField, -80, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.NORTH, qualityTextField, 27, SpringLayout.SOUTH, deliveryTimeTextField);
 		sl_panel.putConstraint(SpringLayout.WEST, qualityTextField, 0, SpringLayout.WEST, maxPriceTextField);
@@ -152,6 +155,7 @@ public class RequestForm {
 		panel.add(lblQuantityLabel);
 		
 		QuantityTextField = new JTextField();
+		QuantityTextField.setText("5000");
 		sl_panel.putConstraint(SpringLayout.NORTH, QuantityTextField, 0, SpringLayout.NORTH, lblQuantityLabel);
 		sl_panel.putConstraint(SpringLayout.WEST, QuantityTextField, 0, SpringLayout.WEST, maxPriceTextField);
 		sl_panel.putConstraint(SpringLayout.SOUTH, QuantityTextField, 38, SpringLayout.NORTH, lblQuantityLabel);
