@@ -8,11 +8,20 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
+
+import c.one.ConfirmOfferIHM;
+import c.one.Util;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BookMakeOfferFrame {
 
@@ -47,12 +56,24 @@ public class BookMakeOfferFrame {
 	 */
 	public BookMakeOfferFrame() {
 		initialize();
+		addEvents();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		try {
+			// UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
+			UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			Logger.getLogger(ConfirmOfferIHM.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		frmMakeOfferTo = new JFrame();
 		frmMakeOfferTo.setTitle("Make Offer to Bookstore A");
 		frmMakeOfferTo.setBounds(100, 100, 449, 473);
@@ -195,6 +216,7 @@ public class BookMakeOfferFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				Offer off = makeOffer();
+				createOffer(off);
 				System.exit(0);
 			}
 		});
@@ -209,7 +231,23 @@ public class BookMakeOfferFrame {
 			}
 		});
 		
+		
+		
 	}
 	
-	
+	public void createOffer(Offer off){ 
+	try {
+		 String path=Util.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			path=path.replaceAll("%20", " ");
+			path+="\\..\\myBin\\offerFile.req";
+           FileOutputStream fileOut = new FileOutputStream(path);
+           ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+           objectOut.writeObject(off);
+           objectOut.close();
+           System.out.println("The Object  was succesfully written to a file");
+
+       } catch (Exception ex) {
+           ex.printStackTrace();
+       }
+	}
 }
