@@ -163,5 +163,16 @@ public class Util {
 	        }
 	}
 	
+	public static Object defaultfunc(Object obj){
+		
+		return 1;
+	}
+	
+	public static Boolean guardP2(Object obj1, Object obj2){
+		
+		return (obj1!=null && obj2!=null);
+		
+	}
+
 	
 }

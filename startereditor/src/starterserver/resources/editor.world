@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?><world>
-	<connectTo id_src="ComponentsManager" type_dest="components-graph" id_dest="components-graph"/><connectTo id_src="ComponentsManager" type_dest="soaApp" id_dest="C1"/><connectTo id_src="C1" type_dest="soaApp" id_dest="C2"/></world>
+	<connectTo id_src="ComponentsManager" type_dest="components-graph" id_dest="components-graph"/><connectTo id_src="ComponentsManager" type_dest="soaApp" id_dest="C1"/>
+	<connectTo id_src="C1" type_dest="soaApp" id_dest="C2"/>
+	</world>

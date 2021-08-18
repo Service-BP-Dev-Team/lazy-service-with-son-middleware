@@ -91,6 +91,8 @@ public class ComponentIHM {
 		frame.setBounds(100, 100, 900, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
+		
 		try {
 			// UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
 			UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
@@ -100,6 +102,7 @@ public class ComponentIHM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -160,7 +163,7 @@ public class ComponentIHM {
 		JPanel panelInputValueTitle = new JPanel();
 		panelInputs.add(panelInputValueTitle, BorderLayout.NORTH);
 
-		JLabel lblInputVariables = new JLabel("Configuration Pending Computations");
+		JLabel lblInputVariables = new JLabel("Configuration Equations");
 		panelInputValueTitle.add(lblInputVariables);
 
 		panelConfigurationEquations = new JPanel();
@@ -393,7 +396,8 @@ public class ComponentIHM {
 						rightPart = (new PendingLocalFunctionComputationAspect((PendingLocalFunctionComputation) ref))
 								.prettyPrint();
 					} else {
-						rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+						//rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+						rightPart = "" + ((Data) ref).getFullDisplayName() + "";
 					}
 					panes[count][0].add(new JLabel(dat.getFullDisplayName()));
 					panes[count][1].add(new JLabel("="));
@@ -415,7 +419,8 @@ public class ComponentIHM {
 							rightPart = (new PendingLocalFunctionComputationAspect(
 									(PendingLocalFunctionComputation) ref)).prettyPrint();
 						} else if (ref instanceof Data) {
-							rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+							//rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+							rightPart = "" + ((Data) ref).getFullDisplayName() + "";
 						}
 						panes[count][0].add(new JLabel(dat.getFullDisplayName()));
 						panes[count][1].add(new JLabel("="));

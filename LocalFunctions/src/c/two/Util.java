@@ -15,9 +15,11 @@ public class Util {
 		Offer offr =(Offer)c.general.Util.fileAdapt(offer);
 		Request req = (Request)c.general.Util.fileAdapt(request);
 		if(offr!=null && req!=null){
-			return (offr.getPrice()>req.getMaxPrice());
+			if(offr.getPrice()>req.getMaxPrice()){
+				return true;
+			}
 		}
-		return true;
+		return null;
 		
 	}
 	
@@ -50,5 +52,15 @@ public class Util {
 		return (!validationOkGuard(askValidation,validation,offer) && offer!=null);
 	}
 	
+	public static Object defaultfunc(Object obj){
+		
+		return 1;
+	}
 	
+	
+	public static Boolean guardP3(Object obj1, Object obj2){
+		
+		return (obj1!=null && obj2!=null);
+		
+	}
 }
