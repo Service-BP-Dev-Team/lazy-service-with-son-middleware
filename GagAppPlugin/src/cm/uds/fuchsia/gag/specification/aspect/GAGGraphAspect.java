@@ -80,9 +80,9 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   
   public static String styleServiceRemote = ((((((((((((((((mxConstants.STYLE_FILLCOLOR + "=#ffffff") + ";") + mxConstants.STYLE_SHAPE) + "=") + mxConstants.SHAPE_ELLIPSE) + ";") + mxConstants.STYLE_DASHED) + "=") + "1") + ";") + mxConstants.STYLE_DASH_PATTERN) + "=10") + ";") + mxConstants.STYLE_STROKECOLOR) + "=#c0bfc6") + ";");
   
-  public static String styleServiceInput = (((((((((mxConstants.STYLE_FILLCOLOR + "=#ffffff") + ";") + mxConstants.STYLE_SHAPE) + "=") + mxConstants.SHAPE_ELLIPSE) + ";") + mxConstants.STYLE_STROKECOLOR) + "=green") + ";");
+  public static String styleServiceInput = (((((((((mxConstants.STYLE_FILLCOLOR + "=#ffffff") + ";") + mxConstants.STYLE_SHAPE) + "=") + mxConstants.SHAPE_RECTANGLE) + ";") + mxConstants.STYLE_STROKECOLOR) + "=green") + ";");
   
-  public static String styleServiceOutput = (((((((((mxConstants.STYLE_FILLCOLOR + "=#ffffff") + ";") + mxConstants.STYLE_SHAPE) + "=") + mxConstants.SHAPE_ELLIPSE) + ";") + mxConstants.STYLE_STROKECOLOR) + "=red") + ";");
+  public static String styleServiceOutput = (((((((((mxConstants.STYLE_FILLCOLOR + "=#ffffff") + ";") + mxConstants.STYLE_SHAPE) + "=") + mxConstants.SHAPE_RECTANGLE) + ";") + mxConstants.STYLE_STROKECOLOR) + "=red") + ";");
   
   private Object parent;
   
@@ -236,7 +236,7 @@ public class GAGGraphAspect extends GAGAspect implements OutputInterface, MouseL
   public void drawInputs(final Task task) {
     Object _get = this.mapDataGraph.get(task);
     final mxRectangle rec = this.graph.getCellBounds(_get);
-    int space = 20;
+    int space = 70;
     ArrayList<Data> _inputs = task.getInputs();
     int _size = _inputs.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);

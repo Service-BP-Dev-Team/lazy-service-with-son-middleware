@@ -168,6 +168,19 @@ public class Util {
 		return 1;
 	}
 	
+	public static int computeFees(Object obj){
+		
+		return 170000;
+				
+				
+	}
+	
+	public static String getDeliverLink(Object obj){
+		
+		return "https://link-to-delivery-info";
+	}
+	
+	
 	public static Boolean guardP2(Object obj1, Object obj2){
 		
 		return (obj1!=null && obj2!=null);

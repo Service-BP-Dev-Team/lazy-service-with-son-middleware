@@ -57,6 +57,11 @@ public class Util {
 		return 1;
 	}
 	
+	public static String validateOffer(Object obj){
+		return "Ok";
+	}
+	
+	
 	
 	public static Boolean guardP3(Object obj1, Object obj2){
 		

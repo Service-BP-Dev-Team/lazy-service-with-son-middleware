@@ -19,6 +19,7 @@ import cm.uds.fuchsia.gag.model.configuration.Configuration;
 import cm.uds.fuchsia.gag.model.configuration.Task;
 import cm.uds.fuchsia.gag.model.specification.Parameter;
 import cm.uds.fuchsia.gag.model.specification.Service;
+import cm.uds.fuchsia.gag.model.specification.SpecificActions;
 import cm.uds.fuchsia.gag.specification.aspect.GAGGraphAspect;
 import cm.uds.fuchsia.gag.util.UIUtil;
 
@@ -156,6 +157,7 @@ public class ChooseAxiomDialog extends JDialog {
 				Task t=gag.createRootTask(axiom,myInputsArray);
 				Configuration conf= new Configuration();
 				conf.setRoot(t);
+				SpecificActions.doWhenAxiom(t, gag.getComponent());
 				gag.setConfiguration(conf);
 				gag.update(gag);
 				myRef.dispose();

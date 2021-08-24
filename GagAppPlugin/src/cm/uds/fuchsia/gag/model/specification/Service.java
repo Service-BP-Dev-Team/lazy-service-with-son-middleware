@@ -10,6 +10,7 @@ public class Service {
       
 	private String name;
 	private Boolean axiom;
+	
 	private ArrayList<Parameter> inputParameters;
 	private ArrayList<Parameter> outputParameters;
 	private ArrayList<DecompositionRule> rules;
@@ -17,6 +18,9 @@ public class Service {
 	
 	private Boolean remote=false; // default false
 	private String location;
+	
+	//just to add specific action when triggering a service as axiom for specific example
+	private String exampleSignature;
 	
 	public Service() {
 		rules = new ArrayList<DecompositionRule>();
@@ -75,6 +79,15 @@ public class Service {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public String getExampleSignature() {
+		return exampleSignature;
+	}
+	@XmlAttribute(name="exampleSignature")
+	public void setExampleSignature(String exampleSignature) {
+		this.exampleSignature = exampleSignature;
+	}
+	
+	
 	
 	
 	

@@ -99,7 +99,7 @@ public class BookMakeOfferFrame {
 		panel.add(lblNewLabel);
 		
 		textFieldQt1 = new JTextField();
-		textFieldQt1.setText("3000");
+		textFieldQt1.setText("300");
 		sl_panel.putConstraint(SpringLayout.NORTH, textFieldQt1, -3, SpringLayout.NORTH, lblNewLabel);
 		sl_panel.putConstraint(SpringLayout.WEST, textFieldQt1, 32, SpringLayout.EAST, lblNewLabel);
 		panel.add(textFieldQt1);
@@ -111,7 +111,7 @@ public class BookMakeOfferFrame {
 		panel.add(lblNewLabel_1);
 		
 		textFieldPc1 = new JTextField();
-		textFieldPc1.setText("2000");
+		textFieldPc1.setText("200");
 		sl_panel.putConstraint(SpringLayout.NORTH, textFieldPc1, 17, SpringLayout.SOUTH, textFieldQt1);
 		sl_panel.putConstraint(SpringLayout.EAST, textFieldPc1, 0, SpringLayout.EAST, textFieldQt1);
 		panel.add(textFieldPc1);
@@ -170,13 +170,13 @@ public class BookMakeOfferFrame {
 		
 		JLabel lblPrice_2 = new JLabel("Price");
 		sl_panel.putConstraint(SpringLayout.WEST, lblPrice_2, 0, SpringLayout.WEST, lblNewLabel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, lblPrice_2, -22, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, lblPrice_2, -10, SpringLayout.SOUTH, panel);
 		panel.add(lblPrice_2);
 		
 		textFieldPc3 = new JTextField();
-		textFieldPc3.setText("1000");
+		sl_panel.putConstraint(SpringLayout.NORTH, textFieldPc3, -3, SpringLayout.NORTH, lblPrice_2);
 		sl_panel.putConstraint(SpringLayout.WEST, textFieldPc3, 0, SpringLayout.WEST, textFieldQt1);
-		sl_panel.putConstraint(SpringLayout.SOUTH, textFieldPc3, 0, SpringLayout.SOUTH, lblPrice_2);
+		textFieldPc3.setText("100");
 		panel.add(textFieldPc3);
 		textFieldPc3.setColumns(10);
 		
