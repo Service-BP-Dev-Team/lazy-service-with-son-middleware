@@ -91,6 +91,8 @@ public class ComponentIHM {
 		frame.setBounds(100, 100, 900, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
+		
 		try {
 			// UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
 			UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
@@ -100,6 +102,7 @@ public class ComponentIHM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -147,7 +150,7 @@ public class ComponentIHM {
 		JPanel panelConValueTitle = new JPanel();
 		panelConfValue.add(panelConValueTitle, BorderLayout.NORTH);
 
-		JLabel lblConfigurationValues = new JLabel("Configuration Values");
+		JLabel lblConfigurationValues = new JLabel("Configuration Valuation");
 		panelConValueTitle.add(lblConfigurationValues);
 
 		panelConfValueContent = new JPanel();
@@ -160,7 +163,7 @@ public class ComponentIHM {
 		JPanel panelInputValueTitle = new JPanel();
 		panelInputs.add(panelInputValueTitle, BorderLayout.NORTH);
 
-		JLabel lblInputVariables = new JLabel("Configuration Pending Computations");
+		JLabel lblInputVariables = new JLabel("Configuration Equations");
 		panelInputValueTitle.add(lblInputVariables);
 
 		panelConfigurationEquations = new JPanel();
@@ -173,7 +176,7 @@ public class ComponentIHM {
 		JPanel panelOutputsTitle = new JPanel();
 		panelOutputs.add(panelOutputsTitle, BorderLayout.NORTH);
 
-		JLabel lblOutputTitle = new JLabel("Outputs / Subscriptions");
+		JLabel lblOutputTitle = new JLabel("Subscriptions");
 		panelOutputsTitle.add(lblOutputTitle);
 		
 		panelSubscriptionsContent= new JPanel();
@@ -185,10 +188,18 @@ public class ComponentIHM {
 
 		JPanel panelConfigurationText = new JPanel();
 		panelConfiguration.add(panelConfigurationText, BorderLayout.NORTH);
-
-		JLabel lblNewLabel = new JLabel("Configuration");
-		panelConfigurationText.add(lblNewLabel);
-
+		panelConfigurationText.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		panelConfigurationText.add(panel, BorderLayout.EAST);
+		panel.setPreferredSize(new Dimension(300,panelConfigurationText.getPreferredSize().height));
+		
+		JPanel panel_1 = new JPanel();
+		panelConfigurationText.add(panel_1, BorderLayout.CENTER);
+		
+		JLabel lblNewLabel = new JLabel("Graphic Visualization");
+		panel_1.add(lblNewLabel);
+		
 		panelConfigurationGraph = new JPanel();
 		panelConfiguration.add(panelConfigurationGraph, BorderLayout.CENTER);
 		
@@ -393,7 +404,8 @@ public class ComponentIHM {
 						rightPart = (new PendingLocalFunctionComputationAspect((PendingLocalFunctionComputation) ref))
 								.prettyPrint();
 					} else {
-						rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+						//rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+						rightPart = "" + ((Data) ref).getFullDisplayName() + "";
 					}
 					panes[count][0].add(new JLabel(dat.getFullDisplayName()));
 					panes[count][1].add(new JLabel("="));
@@ -415,7 +427,8 @@ public class ComponentIHM {
 							rightPart = (new PendingLocalFunctionComputationAspect(
 									(PendingLocalFunctionComputation) ref)).prettyPrint();
 						} else if (ref instanceof Data) {
-							rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+							//rightPart = "_ id(" + ((Data) ref).getFullDisplayName() + ")";
+							rightPart = "" + ((Data) ref).getFullDisplayName() + "";
 						}
 						panes[count][0].add(new JLabel(dat.getFullDisplayName()));
 						panes[count][1].add(new JLabel("="));

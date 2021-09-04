@@ -75,7 +75,7 @@ public class BookMakeOfferFrame {
 		}
 		
 		frmMakeOfferTo = new JFrame();
-		frmMakeOfferTo.setTitle("Make Offer to Bookstore A");
+		frmMakeOfferTo.setTitle("Offer to Bookstore A");
 		frmMakeOfferTo.setBounds(100, 100, 449, 473);
 		frmMakeOfferTo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();

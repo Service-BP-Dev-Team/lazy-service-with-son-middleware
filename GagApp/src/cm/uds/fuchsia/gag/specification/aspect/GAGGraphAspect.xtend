@@ -51,8 +51,8 @@ class GAGGraphAspect extends GAGAspect implements OutputInterface,MouseListener{
 	public static String styleServiceOpen=mxConstants.STYLE_FILLCOLOR + "=#c0bfc6"+";"+mxConstants.STYLE_SHAPE+"="+mxConstants.SHAPE_ELLIPSE+";";
 	public static String styleServiceRemote=mxConstants.STYLE_FILLCOLOR + "=#ffffff"+";"+mxConstants.STYLE_SHAPE+"="+mxConstants.SHAPE_ELLIPSE+";"+mxConstants.STYLE_DASHED+"="+"1"
                            +";"+ mxConstants.STYLE_DASH_PATTERN + "=10"+";"+mxConstants.STYLE_STROKECOLOR+"=#c0bfc6"+";";
-	public static String styleServiceInput=mxConstants.STYLE_FILLCOLOR + "=#ffffff"+";"+mxConstants.STYLE_SHAPE+"="+mxConstants.SHAPE_RECTANGLE+";"+mxConstants.STYLE_STROKECOLOR+"=green"+";";
-	public static String styleServiceOutput=mxConstants.STYLE_FILLCOLOR + "=#ffffff"+";"+mxConstants.STYLE_SHAPE+"="+mxConstants.SHAPE_RECTANGLE+";"+mxConstants.STYLE_STROKECOLOR+"=red"+";";
+	public static String styleServiceInput=mxConstants.STYLE_FILLCOLOR + "=#ffffff"+";"+mxConstants.STYLE_SHAPE+"="+mxConstants.SHAPE_RECTANGLE+";"+mxConstants.STYLE_STROKECOLOR+"=red"+";";
+	public static String styleServiceOutput=mxConstants.STYLE_FILLCOLOR + "=#ffffff"+";"+mxConstants.STYLE_SHAPE+"="+mxConstants.SHAPE_RECTANGLE+";"+mxConstants.STYLE_STROKECOLOR+"=green"+";";
 	Object parent
 	
 	ChooseRuleDialog dialog

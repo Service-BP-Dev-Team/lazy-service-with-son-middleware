@@ -170,7 +170,7 @@ public class Util {
 	
 	public static int computeFees(Object obj){
 		
-		return 170000;
+		return 170000 + 5000;
 				
 				
 	}
